@@ -1,0 +1,14 @@
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\bin\Debug\netstandard2.0\Core.deps.json
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\bin\Debug\netstandard2.0\Core.dll
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\bin\Debug\netstandard2.0\Core.pdb
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\bin\Debug\netstandard2.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\bin\Debug\netstandard2.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\bin\Debug\netstandard2.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.xml
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\bin\Debug\netstandard2.0\Microsoft.Extensions.Identity.Stores.xml
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\obj\Debug\netstandard2.0\Core.csproj.CoreCompileInputs.cache
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\obj\Debug\netstandard2.0\Core.AssemblyInfoInputs.cache
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\obj\Debug\netstandard2.0\Core.AssemblyInfo.cs
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\obj\Debug\netstandard2.0\Core.csproj.CopyComplete
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\obj\Debug\netstandard2.0\Core.dll
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\obj\Debug\netstandard2.0\Core.pdb
+C:\Users\rcil\Desktop\BarcodeApp\Libraries\Core\obj\Debug\netstandard2.0\Core.csprojAssemblyReference.cache
