@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "04515604545a81f05858deb839efca69131dd2c6"
+    "signature": "5623c38aef99ea9d78bc22d0afeebda6a70f223d"
   },
   "compilationOptions": {
     "defines": [
@@ -25,6 +25,7 @@
       "CustomerWeb/1.0.0": {
         "dependencies": {
           "Data": "1.0.0",
+          "FontAwesome": "4.7.0",
           "Microsoft.AspNetCore.All": "2.2.5",
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
@@ -43,6 +44,7 @@
           "CustomerWeb.dll": {}
         }
       },
+      "FontAwesome/4.7.0": {},
       "Microsoft.AspNetCore.App/2.2.0": {
         "dependencies": {
           "Microsoft.AspNet.WebApi.Client": "5.2.6",
@@ -4363,6 +4365,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "FontAwesome/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-n4H/brfszElyoZ4kmGh8E75uqvLzLvFr3h2PFVdPH1LwUmWIpeqdaW2pcC4oZAhg7sESyObh0IZpAI8COCNeUg==",
+      "path": "fontawesome/4.7.0",
+      "hashPath": "fontawesome.4.7.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.App/2.2.0": {
       "type": "package",

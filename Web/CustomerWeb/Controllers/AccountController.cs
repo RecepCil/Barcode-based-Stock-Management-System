@@ -45,7 +45,7 @@ namespace CustomerWeb.Controllers
                 return View(model);
 
             var user = await this.userManager.FindByNameAsync(model.Username);
-            if (user != null)
+            if (user != null) 
             {
                 if (!await this.userManager.IsEmailConfirmedAsync(user))
                 {

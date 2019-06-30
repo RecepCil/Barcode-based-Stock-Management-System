@@ -42,3 +42,4 @@ C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\V
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Account\Register.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Account\ResetPassword.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Account\ResetPasswordConfirm.g.cshtml.cs
+C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Transaction\Index.g.cshtml.cs

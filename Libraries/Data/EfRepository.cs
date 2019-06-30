@@ -55,7 +55,7 @@ namespace Data
         /// Insert entity
         /// </summary>
         /// <param name="entity">Entity</param>
-        public virtual void Insert(T entity)
+        public virtual int Insert(T entity)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Data
 
                 Entities.Add(entity);
 
-                _context.SaveChanges();
+                return _context.SaveChanges();
             }
             catch (Exception ex)
             {

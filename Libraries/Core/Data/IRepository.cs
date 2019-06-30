@@ -7,7 +7,7 @@ namespace Core.Data
     {
         T GetById(object id);
 
-        void Insert(T entity);
+        int Insert(T entity);
 
         void Insert(IEnumerable<T> entities);
 

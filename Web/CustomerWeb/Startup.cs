@@ -15,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Email;
 using Services.ProductServices;
+using Services.TransactionItemServices;
+using Services.TransactionServices;
 
 namespace CustomerWeb
 {
@@ -51,6 +53,8 @@ namespace CustomerWeb
             services.AddScoped<IDbContext, DataContext>();
             // Services
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<ITransactionItemService, TransactionItemService>();
 
             // Identity
             services.Configure<IdentityOptions>(options =>

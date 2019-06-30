@@ -13,9 +13,12 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link href="~/fontawesome/4.7.0/Content/Content/font-awesome.min.css" rel="stylesheet" />
+
 </head>
 <body>
     <header>
@@ -72,6 +75,99 @@
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    <script type="text/javascript">
+
+        //window.onkeyup = function(e) {
+        //    alert(e);
+        //}
+
+
+
+        //TODO - Güvenli mi? SQL Injection vs
+        function additem(id, name, amount) {
+
+            if (document.getElementsByName("products[" + id + "].Name").length > 0) {
+
+                document.getElementById("products[" + id + "].Quantity").stepUp(1);
+
+
+            } else {
+                $(cart).append('<div id="divProduct' + id + '" class="row"><div class="col-sm-4"> <input type="hidden" name="products.Index" value="' + id + '" />  '       
+
+                    + '<input type="hidden" name = "products[' + id + '].Id" id = "products[' + id + '].Id" value = "' + id + '" />'
+
+                    + '<input class= "form-control" type = "text" name = "products[' + id + '].Name" id = "products[' + id + '].Name" value = "' + name + '" disable /></div > '
+                    + '<div class="col-sm-3"><input class="form-control" type="number" name="products[' + id + '].Quantity" id="products[' + id + '].Quantity" value="1" onchange="myFunction()" onkeyup="myFunction()" /></div>'
+                    + '<div class="col-sm-4"><input class="form-control" type="text" name="products[' + id + '].Amount" name="products[' + id + '].Amount" value="' + amount + '"  onkeyup="myFunction()" /> </div>'
+                    + '<div class="col-sm-1"><a id=\"btnRemoveItem' + id + '\" href=\"javascript: removeItem(' + id + ')\"><i class=\"fa fa-close\"></i></a></div><br\></div>');
+
+            }
+              myFunction();
+        }
+
+        function removeItem(id) {
+            if (id == 0) {  // delete 'em all
+                var divProduct = document.querySelectorAll('[id^="divProduct"]');
+                for (var i = 0; i < divProduct.length; i++) {
+                    divProduct[i].innerHTML = "";
+                    divProduct[i].parentNode.removeChild(divProduct[i]);
+                }
+            } else {
+                var divProduct = document.getElementById("divProduct" + id);
+                divProduct.innerHTML = "";
+                divProduct.parentNode.removeChild(divProduct);
+            }
+             myFunction();
+        }
+    </script>
+
+    @*<%--CALCULATE AMOUNTS--%>*@
+    <script>
+        var myFunction = function () {
+            var sum = 0;
+            var data = {
+            }
+            $("input[name$='Amount']").each(function (index, item) {
+                /* Get Amount */
+                /*var val = $(item).val();*/
+                var get_val = $(this).val();
+                amount = Number(get_val);
+
+                /* Get Quantity */
+                var quantityInput = $(this).attr("name").replace("Amount", "Quantity");  /*We get the name of quantity*/
+                quantity = document.getElementById(quantityInput).value;
+
+                /* Get Total */
+                sum += (amount * quantity);
+            });
+           document.getElementById("total").innerHTML = sum;
+        };
+
+        $(document).ready(function () {
+            /* Run after page load */
+            myFunction();
+            /* Run after keyup .cell */
+            $("input[name$='Amount']").keyup(myFunction)
+        });
+    </script>
+
+   
+    @*<script>
+
+            $(document).ready(function () {
+
+                $("input[name^='Quantity']").on('change', function(e) {
+        alert('hidden field changed!');
+                });
+
+
+
+            });
+        </script>*@
+
+
     @RenderSection("Scripts", required: false)
+
+
 </body>
 </html>
