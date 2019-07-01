@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Core.Domain.Product>
+@{
+    ViewData["Title"] = "List";
+}
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">@ViewData["Title"]</h4>
+        </div>
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center justify-content-end">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="@Url.Action("Create")" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> Create</a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <form class="form-horizontal" asp-controller="Product" asp-action="List" method="get">
+                @*@await Html.PartialAsync("Search")*@
+            </form>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead class="bg-secondary text-white">
+        <tr>
+            <th>Sku</th>
+            <th>Name</th>
+            <th>Photo</th>
+            <th>Stock</th>
+            <th>Son bir ayda kaç tane satıldı??</th>
+            <th>Default Amount</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td width="100">@item.Sku</td>
+            <td width="140">@item.Name</td>
+            <td width="140">@item.ImageUrl</td>
+            <td width="140">@item.Quantity</td>
+            <td width="140">TODO</td>
+            <td width="140">@item.DefaultAmount</td>
+            <td style="text-align:right" width="160">
+                <a href="@Url.Action("Edit","Product", new { id = item.Id })" class="btn btn-sm btn-info">Edit</a>
+                <a href="@Url.Action("Delete","Product", new { id = item.Id })" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the record?')">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+@*@{
+    RouteValueDictionary tRVD = new RouteValueDictionary();
+    foreach (var key in Context.Request.Query.ToList())
+    {
+        tRVD[key.Key] = Context.Request.Query[key.Key].ToString();
+    }
+}
+<div class="text-right text-sm">@Html.PagedListPager((IPagedList)Model, page => { tRVD["p"] = page; return @Url.Action("List", tRVD); })</div>*@
+</div>
