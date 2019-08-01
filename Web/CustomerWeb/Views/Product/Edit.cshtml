@@ -27,7 +27,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form class="mt-4" asp-controller="Product" asp-action="Edit" method="post">
+                    <form class="mt-4" asp-controller="Product" asp-action="Edit" method="post" enctype="multipart/form-data">
 
                         @await Html.PartialAsync("_CreateOrUpdate", Model)
 

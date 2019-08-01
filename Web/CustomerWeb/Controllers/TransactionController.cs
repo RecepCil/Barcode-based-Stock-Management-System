@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Services.ProductServices;
 using Services.TransactionItemServices;
@@ -30,38 +29,67 @@ namespace CustomerWeb.Controllers
 
         #endregion
 
-        public IActionResult Index()
+        public IActionResult Index(string successMessage = "")
         {
-            var model = _productService.GetAll();
+            if(!string.IsNullOrEmpty(successMessage))
+                ViewBag.successMessage = successMessage;
+
+            var model = _productService.GetAll(true);
             return View(model.ToList());
         }
 
         [Route("/Transaction/Complete")]
-        public IActionResult Complete(IEnumerable<Models.TransactionModel> products)
+        public IActionResult Complete(Models.TransactionModel products)
         {
-            int transactionId = _transactionService.Insert(new Core.Domain.Transaction
-            {
-                ActionType = "Selling",
-                IsDeleted = false,
-                Total = products.Sum(x => x.Amount * x.Quantity),
-                TransactionDate = DateTime.UtcNow
-            });
+            string successMessage = string.Empty;
 
-            foreach (var item in products)
+            Dictionary<int, int> dictionary = new Dictionary<int, int>();
+
+            if (ModelState.IsValid && ModelState.Count > 0)
             {
-                _transactionItemService.Insert(new Core.Domain.TransactionItem {
-                    Amount = item.Amount,
-                    Quantity = item.Quantity,
-                    ProductId = item.Id,
-                    TransactionId = transactionId
+                Core.Domain.Transaction transaction = _transactionService.Insert(new Core.Domain.Transaction
+                {
+                    ActionType = "Selling",
+                    IsDeleted = false,
+                    Total = Math.Round(products.Total,2),
+                    TransactionDate = DateTime.UtcNow,
+                    Status = "Requested"
                 });
+
+                foreach (var item in products.itemList)
+                {
+                    _transactionItemService.Insert(new Core.Domain.TransactionItem
+                    {
+                        ProductId = item.Id,
+                        Quantity = item.Quantity,
+                        UnitPrice = Math.Round(item.UnitPrice, 2),
+                        AmountToPay = Math.Round(Convert.ToDecimal(item.AmountToPay), 2),
+                        TransactionId = transaction.Id
+                    });
+
+                    dictionary.Add(item.Id,item.Quantity);
+                }
+
+                var response = _transactionService.CheckStore(dictionary);
+
+                if (string.Equals(response, "Success"))
+                {
+                    _transactionService.UpdateStore(dictionary);
+                    successMessage = "Success";
+                    transaction.Status = "Success";
+                    _transactionService.Update(transaction);
+                }
+                else
+                {
+                    successMessage = response;
+                }
+            }
+            else
+            {
+                successMessage = "Failed";
             }
 
-           
-
-            return null;
+            return RedirectToAction("Index", new { successMessage });
         }
-
-        
     }
 }

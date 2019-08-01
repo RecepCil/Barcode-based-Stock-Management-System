@@ -24,7 +24,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CustomerWeb</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BarcodeApp</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -32,10 +32,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Transaction" asp-action="Index">Transaction</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Report" asp-action="Index">Report</a>
                         </li>
                     </ul>
                 </div>
@@ -81,31 +84,28 @@
         //    alert(e);
         //}
 
+        function additem(id, name, unitPrice) {//TODO - Güvenli mi? SQL Injection vs
 
+            if (document.getElementsByName("products.itemList[" + id + "].Name").length > 0) {
 
-        //TODO - Güvenli mi? SQL Injection vs
-        function additem(id, name, amount) {
-
-            if (document.getElementsByName("products[" + id + "].Name").length > 0) {
-
-                document.getElementById("products[" + id + "].Quantity").stepUp(1);
+                document.getElementById("products.itemList[" + id + "].Quantity").stepUp(1);
 
 
             } else {
-                $(cart).append('<div id="divProduct' + id + '" class="row"><div class="col-sm-4"> <input type="hidden" name="products.Index" value="' + id + '" />  '       
-
-                    + '<input type="hidden" name = "products[' + id + '].Id" id = "products[' + id + '].Id" value = "' + id + '" />'
-
-                    + '<input class= "form-control" type = "text" name = "products[' + id + '].Name" id = "products[' + id + '].Name" value = "' + name + '" disable /></div > '
-                    + '<div class="col-sm-3"><input class="form-control" type="number" name="products[' + id + '].Quantity" id="products[' + id + '].Quantity" value="1" onchange="myFunction()" onkeyup="myFunction()" /></div>'
-                    + '<div class="col-sm-4"><input class="form-control" type="text" name="products[' + id + '].Amount" name="products[' + id + '].Amount" value="' + amount + '"  onkeyup="myFunction()" /> </div>'
+                $(cart).append('<div id="divProduct' + id + '" class="row"><div class="col-sm-4"> <input type="hidden" name="products.itemList.Index" value="' + id + '" />  '
+                    + '<input type="hidden" name = "products.itemList[' + id + '].Id" id = "products.itemList[' + id + '].Id" value = "' + id + '" />'
+                    + '<input class= "form-control" type = "text" name = "products.itemList[' + id + '].Name" id = "products.itemList[' + id + '].Name" value = "' + name + '" disable /></div > '
+                    + '<div class="col-sm-2"><input class="form-control" type="number" name="products.itemList[' + id + '].Quantity" id="products.itemList[' + id + '].Quantity" value="1" onchange="calcAmountToPay(' + id + ')" onkeyup="calcAmountToPay(' + id + ')" min="1" /></div>'
+                    + '<div class="col-sm-2"><input class="form-control" type="text" name="products.itemList[' + id + '].UnitPrice" id="products.itemList[' + id + '].UnitPrice" value="' + unitPrice + '"  onkeyup="calcAmountToPay(' + id + ')" readonly="readonly"  /> </div>'
+                    + '<div class="col-sm-3"><input class="form-control" type="text" name="products.itemList[' + id + '].AmountToPay" id="products.itemList[' + id + '].AmountToPay" onkeyup="calcUnitPrice(' + id + ')" readonly="readonly"  /> </div>'
                     + '<div class="col-sm-1"><a id=\"btnRemoveItem' + id + '\" href=\"javascript: removeItem(' + id + ')\"><i class=\"fa fa-close\"></i></a></div><br\></div>');
-
             }
-              myFunction();
+
+            calcAmountToPay(id);
         }
 
         function removeItem(id) {
+
             if (id == 0) {  // delete 'em all
                 var divProduct = document.querySelectorAll('[id^="divProduct"]');
                 for (var i = 0; i < divProduct.length; i++) {
@@ -117,57 +117,87 @@
                 divProduct.innerHTML = "";
                 divProduct.parentNode.removeChild(divProduct);
             }
-             myFunction();
+            calcTotalAmount();
         }
+
     </script>
 
-    @*<%--CALCULATE AMOUNTS--%>*@
     <script>
-        var myFunction = function () {
-            var sum = 0;
-            var data = {
-            }
-            $("input[name$='Amount']").each(function (index, item) {
-                /* Get Amount */
-                /*var val = $(item).val();*/
-                var get_val = $(this).val();
-                amount = Number(get_val);
 
-                /* Get Quantity */
-                var quantityInput = $(this).attr("name").replace("Amount", "Quantity");  /*We get the name of quantity*/
-                quantity = document.getElementById(quantityInput).value;
+        var calcAmountToPay = function (id) {
 
-                /* Get Total */
-                sum += (amount * quantity);
-            });
-           document.getElementById("total").innerHTML = sum;
+            var unitPrice = document.getElementById("products.itemList[" + id + "].UnitPrice").value;
+            var quantity = document.getElementById("products.itemList[" + id + "].Quantity").value;
+            document.getElementById("products.itemList[" + id + "].AmountToPay").value = unitPrice * quantity;
+
+            calcTotalAmount();
+
         };
 
-        $(document).ready(function () {
-            /* Run after page load */
-            myFunction();
-            /* Run after keyup .cell */
-            $("input[name$='Amount']").keyup(myFunction)
-        });
-    </script>
+        var calcUnitPrice = function (id) {
 
-   
-    @*<script>
+            var quantity = document.getElementById("products.itemList[" + id + "].Quantity").value;
+            var amountToPay = document.getElementById("products.itemList[" + id + "].AmountToPay").value;
+            document.getElementById("products.itemList[" + id + "].UnitPrice").value = Number((amountToPay / quantity).toFixed(2));
 
-            $(document).ready(function () {
+            calcTotalAmount();
 
-                $("input[name^='Quantity']").on('change', function(e) {
-        alert('hidden field changed!');
-                });
+        };
 
+        var calcTotalAmount = function () {
 
+            var totalAmount = 0;
+            $("input[name$='AmountToPay']").each(function (index, item) {
+                /* Get amountToPay */
+                var get_val = $(this).val();
+                amountToPay = Number(get_val);
+
+                /* Get Total */
+                totalAmount += amountToPay;
 
             });
-        </script>*@
 
+            document.getElementById("products.Total").value = totalAmount;
+        };
+
+        //var calcByTotal = function () {
+
+        //    var get_old_total_val = 0;
+        //    $("input[name$='AmountToPay']").each(function (index, item) {
+        //        /* Get amountToPay */
+        //        var get_val = $(this).val();
+        //        amountToPay = Number(get_val);
+
+        //        /* Get Total */
+        //        get_old_total_val += amountToPay;
+        //    });
+
+        //    var get_new_total_val = document.getElementById("Total").value;
+
+        //    var difference = get_new_total_val - get_old_total_val;
+
+        //    //alert(get_new_total_val);
+
+        //    if (Number(get_new_total_val) !== 0) {
+
+        //        $("input[name$='AmountToPay']").each(function (index, item) {
+        //            var _amountToPay = Number($(this).val());
+        //            //if (_amountToPay !== 0) { _amountToPay = 1; }
+        //            //if (get_old_total_val === 0) {get_old_total_val = 1;}
+        //            document.getElementById(item.name).value = Number(_amountToPay + ((_amountToPay * difference) / get_old_total_val), 0);
+        //            //alert(get_old_total_val);
+        //        });
+
+        //    } else {
+        //        //alert('0');
+        //    }
+
+            
+        //};
+
+    </script>
 
     @RenderSection("Scripts", required: false)
-
 
 </body>
 </html>

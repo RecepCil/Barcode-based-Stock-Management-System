@@ -32,7 +32,7 @@ namespace CustomerWeb.Controllers
         {
             _productService.Insert(new Core.Domain.Product() {
                 CreatedOnUtc = DateTime.UtcNow,
-                DefaultAmount = 12,
+                UnitPrice = 12,
                 DeletedOnUtc = DateTime.UtcNow,
                 FullDescription = "FullDesc",
                 ImageUrl = "ImageUrl",
@@ -46,7 +46,7 @@ namespace CustomerWeb.Controllers
                 UpdatedOnUtc = DateTime.UtcNow
             });
 
-            var xXx = _productService.GetAll();
+            var xXx = _productService.GetAll(false);
 
             return View();
         }

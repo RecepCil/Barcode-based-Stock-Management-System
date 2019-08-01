@@ -12,7 +12,7 @@ namespace Core.Domain
         public string FullDescription { get; set; }
         public string ImageUrl { get; set; }
         public int? MerchantId { get; set; }
-        public decimal DefaultAmount { get; set; }
+        public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public bool IsActive { get; set; }
         public bool ShowOnHomePage { get; set; }

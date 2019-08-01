@@ -29,4 +29,11 @@
     <ProjectReference Include="..\..\Libraries\Services\Services.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\73f819a2716c4ae6a43613755e5bca5d.jpg" />
+    <None Include="wwwroot\Images\8a9b78d8830c4e08a59354d709bd8682.jpg" />
+    <None Include="wwwroot\Images\c5de08cbb08246b9adb82d3d25f699f9.jpg" />
+  </ItemGroup>
+
 </Project>

@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using Core.Domain;
 using CustomerWeb.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.ProductServices;
 using System;
+using System.IO;
 
 namespace CustomerWeb.Controllers
 {
@@ -13,15 +16,17 @@ namespace CustomerWeb.Controllers
 
         private IProductService _productService;
         private IMapper _mapper;
+        private IHostingEnvironment _hostingEnvironment;
 
         #endregion
 
         #region Constructors
 
-        public ProductController(IProductService _productService, IMapper _mapper)
+        public ProductController(IProductService _productService, IMapper _mapper, IHostingEnvironment _hostingEnvironment)
         {
             this._productService = _productService;
             this._mapper = _mapper;
+            this._hostingEnvironment = _hostingEnvironment;
         }
 
         #endregion
@@ -35,7 +40,7 @@ namespace CustomerWeb.Controllers
 
         public IActionResult List()
         {
-            var products = _productService.GetAll();
+            var products = _productService.GetAll(false);
             return View(products);
         }
 
@@ -51,7 +56,6 @@ namespace CustomerWeb.Controllers
 
         public IActionResult Create()
         {
-            //ViewBag.Providers = _productService.GetAllProviders();
             return View(new ProductModel());
         }
 
@@ -62,6 +66,9 @@ namespace CustomerWeb.Controllers
             {
                 return View("Create", productModel);
             }
+
+            if (productModel?.Image?.Length > 0)
+                productModel.ImageUrl = SaveImage(productModel.Image);
 
             var product = _mapper.Map<Product>(productModel);
 
@@ -92,8 +99,12 @@ namespace CustomerWeb.Controllers
                 return View("Edit", productModel);
             }
 
+            if (productModel?.Image?.Length > 0)
+                productModel.ImageUrl = SaveImage(productModel.Image);
+
             var product = _mapper.Map<Product>(productModel);
             _productService.Update(product);
+
             return RedirectToAction("List");
         }
 
@@ -101,11 +112,48 @@ namespace CustomerWeb.Controllers
 
         #region Delete
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int Id)
         {
-            var product = _productService.GetById(id);
-            _productService.Delete(product); // TODO - sadeleştir
+            _productService.Delete(Id); 
             return RedirectToAction("List");
+        }
+
+        #endregion
+
+        #region Helper
+
+        public string SaveImage(IFormFile image)
+        {
+            var uploads = Path.Combine(_hostingEnvironment.ContentRootPath+"\\", "wwwroot\\Images\\" );
+            if (image.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString().Replace("-", "").Replace("\\","/") + Path.GetExtension(image.FileName);
+                using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
+                {
+                    image.CopyTo(fileStream);
+                   return fileName;
+                }
+            }
+
+            return null;
+        }
+
+        public IActionResult ShowOrHideOnHomePage(int Id)
+        {
+            var product = _productService.GetById(Id);
+            product.ShowOnHomePage = product.ShowOnHomePage ? false : true;
+            _productService.Update(product);
+            var productModel = _mapper.Map<ProductModel>(product);
+            return View("Edit", productModel);
+        }
+
+        public IActionResult ChangeIsActiveStatus(int Id)
+        {
+            var product = _productService.GetById(Id);
+            product.IsActive = product.IsActive ? false : true;
+            _productService.Update(product);
+            var productModel = _mapper.Map<ProductModel>(product);
+            return View("Edit", productModel);
         }
 
         #endregion

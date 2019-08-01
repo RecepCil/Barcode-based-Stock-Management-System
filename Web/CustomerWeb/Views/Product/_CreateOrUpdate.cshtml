@@ -5,17 +5,24 @@
 
 @model ProductModel;
 
-<div class="form-group">
-    <label asp-for="ShowOnHomePage" class="control-label"></label>
-    <input asp-for="ShowOnHomePage" class="form-control" value="@Model.ShowOnHomePage" />
-    <span asp-validation-for="ShowOnHomePage" class="text-danger"></span>
-</div>
 
-<div class="form-group">
-    <label asp-for="Sku" class="control-label"></label>
-    <input asp-for="Sku" class="form-control" value="@Model.Sku" />
-    <span asp-validation-for="Sku" class="text-danger"></span>
-</div>
+@if (Model.Id != 0)
+{
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="@Url.Action("ShowOrHideOnHomePage","Product", new { Id = Model.Id })" style="width:100%;" class="btn btn-success">
+                Show On Home Page  + @Model.ShowOnHomePage.ToString()
+            </a>
+        </div>
+        <div class="col-md-6">
+            <a href="@Url.Action("ChangeIsActiveStatus","Product", new { Id = Model.Id })" style="width:100%;" class="btn btn-danger">
+                Active / InActive  + @Model.IsActive.ToString()
+            </a>
+        </div>
+    </div>
+
+}
 
 <div class="form-group">
     <label asp-for="Name" class="control-label"></label>
@@ -36,15 +43,9 @@
 </div>
 
 <div class="form-group">
-    <label asp-for="ImageUrl" class="control-label"></label>
-    <input asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl" />
-    <span asp-validation-for="ImageUrl" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-    <label asp-for="DefaultAmount" class="control-label"></label>
-    <input asp-for="DefaultAmount" class="form-control" value="@Model.DefaultAmount" />
-    <span asp-validation-for="DefaultAmount" class="text-danger"></span>
+    <label asp-for="UnitPrice" class="control-label"></label>
+    <input asp-for="UnitPrice" class="form-control" value="@Model.UnitPrice" />
+    <span asp-validation-for="UnitPrice" class="text-danger"></span>
 </div>
 
 <div class="form-group">
@@ -54,11 +55,44 @@
 </div>
 
 <div class="form-group">
-    <label asp-for="IsActive" class="control-label"></label>
-    <input asp-for="IsActive" class="form-control" value="@Model.IsActive" />
-    <span asp-validation-for="IsActive" class="text-danger"></span>
+    <label asp-for="Sku" class="control-label"></label>
+    <input asp-for="Sku" class="form-control" value="@Model.Sku" />
+    <span asp-validation-for="Sku" class="text-danger"></span>
 </div>
 
 <div class="form-group">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <label asp-for="ImageUrl" class="control-label"></label>
+    <input asp-for="ImageUrl" class="form-control" value="@Model.ImageUrl" disabled />
+    <span asp-validation-for="ImageUrl" class="text-danger"></span>
 </div>
+
+<div class="form-group row">
+    <div class="col-md-3">
+        <input type="file" value="False" data-val="true" data-val-required="The Image field is required." asp-for="Image" style="height:34px;" class="form-control-file">
+        <span class="text-danger field-validation-valid" data-valmsg-for="Image" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-md-12">
+        <center>
+            <input type="submit" class="btn btn-primary" title="Submit">
+        </center>
+    </div>
+</div>
+
+@*<div class="form-group">
+        <label asp-for="IsActive" class="control-label"></label>
+        <input asp-for="IsActive" class="form-control" value="@Model.IsActive" />
+        <span asp-validation-for="IsActive" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ShowOnHomePage" class="control-label"></label>
+        <input asp-for="ShowOnHomePage" class="form-control" value="@Model.ShowOnHomePage" />
+        <span asp-validation-for="ShowOnHomePage" class="text-danger"></span>
+    </div>*@
+
+@*<div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>*@

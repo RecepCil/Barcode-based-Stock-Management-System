@@ -1,16 +1,25 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CustomerWeb.Models
 {
     public class ProductModel
     {
+        public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Sku { get; set; } // Stock Keeping Unit
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }
+        public IFormFile Image { get; set; }
         public string ImageUrl { get; set; }
         public int? MerchantId { get; set; }
-        public decimal DefaultAmount { get; set; }
+        [Required]
+        public decimal UnitPrice { get; set; }
+        [Required]
         public int Quantity { get; set; }
         public bool IsActive { get; set; }
         public bool ShowOnHomePage { get; set; }

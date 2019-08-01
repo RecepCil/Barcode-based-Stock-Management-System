@@ -64,7 +64,8 @@ namespace Data
 
                 Entities.Add(entity);
 
-                return _context.SaveChanges();
+                _context.SaveChanges();
+                return entity.Id;
             }
             catch (Exception ex)
             {

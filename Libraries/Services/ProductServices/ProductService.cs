@@ -1,6 +1,8 @@
 ﻿using Core.Data;
 using Core.Domain;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Services.ProductServices
 {
@@ -33,9 +35,12 @@ namespace Services.ProductServices
             return _productRepository.GetById(id);
         }
 
-        public IEnumerable<Product> GetAll()
+        public IEnumerable<Product> GetAll(bool OnlyOftUsed)
         {
-            var result = _productRepository.Table;
+            var result = _productRepository.Table.Where(x => x.IsActive && !x.IsDeleted);
+
+            if (OnlyOftUsed)
+                result = result.Where(x=>x.ShowOnHomePage && x.IsActive && !x.IsDeleted);
 
             return result;
         }
@@ -43,9 +48,9 @@ namespace Services.ProductServices
         public void Update(Product product)
         {
             Product productToUpdate = GetById(product.Id); // TODO - sadece ID
-            productToUpdate.CreatedOnUtc = product.CreatedOnUtc;
-            productToUpdate.DefaultAmount = product.DefaultAmount;
-            productToUpdate.DeletedOnUtc = product.DeletedOnUtc;
+            if (product.CreatedOnUtc != null) { productToUpdate.CreatedOnUtc = product.CreatedOnUtc; }
+            productToUpdate.UnitPrice = product.UnitPrice;
+            //productToUpdate.DeletedOnUtc = product.DeletedOnUtc;
             productToUpdate.FullDescription = product.FullDescription;
             productToUpdate.ImageUrl = product.ImageUrl;
             productToUpdate.IsActive = product.IsActive;
@@ -56,13 +61,15 @@ namespace Services.ProductServices
             productToUpdate.ShortDescription = product.ShortDescription;
             productToUpdate.ShowOnHomePage = product.ShowOnHomePage;
             productToUpdate.Sku = product.Sku;
-            productToUpdate.UpdatedOnUtc = product.UpdatedOnUtc;
+            productToUpdate.UpdatedOnUtc = DateTime.Now;
             _productRepository.Update(product);
         }
 
-        public void Delete(Product product)
+        public void Delete(int Id)
         {
-            _productRepository.Delete(product);
+            var product = GetById(Id);
+            product.IsDeleted = true;
+            _productRepository.Update(product);
         }
 
         #endregion
