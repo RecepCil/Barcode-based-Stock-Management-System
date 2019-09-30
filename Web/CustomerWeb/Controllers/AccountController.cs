@@ -45,21 +45,26 @@ namespace CustomerWeb.Controllers
                 return View(model);
 
             var user = await this.userManager.FindByNameAsync(model.Username);
-            if (user != null) 
-            {
-                if (!await this.userManager.IsEmailConfirmedAsync(user))
-                {
-                    ModelState.AddModelError(string.Empty,
-                              "Confirm your email please");
-                    return View(model);
-                }
-            }
+            //if (user != null) 
+            //{
+            //    if (!await this.userManager.IsEmailConfirmedAsync(user))
+            //    {
+            //        ModelState.AddModelError(string.Empty,
+            //                  "Confirm your email please");
+            //        return View(model);
+            //    }
+            //}
 
-            var result = await this.signInManager.PasswordSignInAsync(
-                model.Username, model.Password, isPersistent: false, lockoutOnFailure: false);
-
+            // TODO - Why PasswordSignInAsync doesn't work for Authorize
+            // and why SignInAsync didn't return any value
+            var result = await this.signInManager.PasswordSignInAsync(model.Username, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
+            {
+                await signInManager.SignInAsync(user, isPersistent: false);
+
                 return RedirectToAction("Index", "Home");
+            }
+                
 
             ModelState.AddModelError(string.Empty, "Login Failed");
             return View(model);

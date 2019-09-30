@@ -36,4 +36,9 @@
     <None Include="wwwroot\Images\c5de08cbb08246b9adb82d3d25f699f9.jpg" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Views\Transaction\" />
+  </ItemGroup>
+
 </Project>

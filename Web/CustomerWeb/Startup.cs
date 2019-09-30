@@ -36,8 +36,6 @@ namespace CustomerWeb
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
             // Database
             services.AddEntityFrameworkNpgsql().AddDbContext<DataContext>(opt =>
             opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
@@ -75,20 +73,29 @@ namespace CustomerWeb
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/Security/Login";
-                options.LogoutPath = "/Security/Logout";
-                options.AccessDeniedPath = "/Security/AccessDenied";
+                //options.LoginPath = "/Security/Login";
+                //options.LogoutPath = "/Security/Logout";
+                //options.AccessDeniedPath = "/Security/AccessDenied";
+                //options.SlidingExpiration = true;
+                //options.Cookie = new CookieBuilder
+                //{
+                //    //Domain = "",
+                //    HttpOnly = true,
+                //    Name = ".Fiver.Security.Cookie",
+                //    Path = "/",
+                //    SameSite = SameSiteMode.Lax,
+                //    SecurePolicy = CookieSecurePolicy.SameAsRequest
+                //};
+
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(50);
+
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/Login";
                 options.SlidingExpiration = true;
-                options.Cookie = new CookieBuilder
-                {
-                    //Domain = "",
-                    HttpOnly = true,
-                    Name = ".Fiver.Security.Cookie",
-                    Path = "/",
-                    SameSite = SameSiteMode.Lax,
-                    SecurePolicy = CookieSecurePolicy.SameAsRequest
-                };
             });
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddIdentity<AppIdentityUser, AppIdentityRole>()
@@ -114,16 +121,16 @@ namespace CustomerWeb
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseAuthentication();
+            //app.UseIdentity();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-            app.UseAuthentication();
+            });            
   
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
         }
     }
 }

@@ -40,7 +40,6 @@
             <th>Name</th>
             <th>Photo</th>
             <th>Stock</th>
-            <th>Son bir ayda kaç tane satıldı??</th>
             <th>Unit Price</th>
             <th></th>
         </tr>
@@ -51,10 +50,9 @@
         <tr>
             <td width="100">@item.Sku</td>
             <td width="140">@item.Name</td>
-            <td width="140">@item.ImageUrl</td>
+            <td width="140"> <img src="~/Images/@item.ImageUrl" width="100" height="100" /> </td>
             <td width="140">@item.Quantity</td>
-            <td width="140">TODO</td>
-            <td width="140">@item.UnitPrice</td>
+            <td width="140">@item.UnitPrice ₺</td>
             <td style="text-align:right" width="160">
                 <a href="@Url.Action("Edit","Product", new { id = item.Id })" class="btn btn-sm btn-info">Edit</a>
                 <a href="@Url.Action("Delete","Product", new { id = item.Id })" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the record?')">Delete</a>

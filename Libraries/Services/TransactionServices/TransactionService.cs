@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Data;
 using Core.Domain;
 
@@ -32,8 +34,6 @@ namespace Services.TransactionServices
             return "Success";
         }
 
-        #endregion
-
         #region Methods
 
         public Transaction Insert(Transaction transaction)
@@ -47,6 +47,18 @@ namespace Services.TransactionServices
             transaction = _transactionRepository.GetById(transaction.Id);
             _transactionRepository.Update(transaction);
         }
+
+        public IEnumerable<Transaction> GetAll(DateTime startDate=default, DateTime endDate=default)
+        {
+            var result = _transactionRepository.Table;
+
+            if (startDate != default && endDate != default)
+                result = result.Where(x => x.TransactionDate >= startDate && x.TransactionDate <= endDate);
+
+            return result;
+        }
+
+        #endregion
 
         public void UpdateStore(Dictionary<int, int> dictionary)
         {

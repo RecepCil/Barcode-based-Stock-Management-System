@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.ProductServices;
 using Services.TransactionItemServices;
@@ -8,6 +9,7 @@ using Services.TransactionServices;
 
 namespace CustomerWeb.Controllers
 {
+    [Authorize]
     public class TransactionController : Controller
     {
         #region Fields
@@ -81,7 +83,8 @@ namespace CustomerWeb.Controllers
                 }
                 else
                 {
-                    successMessage = response;
+                    //successMessage = response;
+                    successMessage = "Failed";
                 }
             }
             else

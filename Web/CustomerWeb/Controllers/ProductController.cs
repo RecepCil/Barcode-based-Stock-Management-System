@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Domain;
 using CustomerWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using System.IO;
 
 namespace CustomerWeb.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         #region Fields

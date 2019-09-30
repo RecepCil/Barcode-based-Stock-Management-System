@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using CustomerWeb.Models;
 using Services.ProductServices;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Data;
 
 namespace CustomerWeb.Controllers
 {
@@ -16,20 +18,26 @@ namespace CustomerWeb.Controllers
         #region Fields
 
         private IProductService _productService;
+        private readonly UserManager<AppIdentityUser> userManager;
+        private readonly SignInManager<AppIdentityUser> signInManager;
 
         #endregion
 
         #region Constructors
 
-        public HomeController(IProductService _productService)
+        public HomeController(IProductService _productService, SignInManager<AppIdentityUser> signInManager)
         {
-            this._productService = _productService;
+            this._productService = _productService; 
+            this.signInManager = signInManager; 
+
         }
 
         #endregion
 
         public IActionResult Index()
         {
+            //signInManager.IsSignedIn(claimsprinci);
+
             _productService.Insert(new Core.Domain.Product() {
                 CreatedOnUtc = DateTime.UtcNow,
                 UnitPrice = 12,

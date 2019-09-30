@@ -27,6 +27,9 @@ namespace Services.ProductServices
 
         public void Insert(Product product)
         {
+            product.IsActive = true;
+            product.IsDeleted = false;
+            product.CreatedOnUtc = DateTime.UtcNow;
             _productRepository.Insert(product);
         }
 
@@ -48,20 +51,21 @@ namespace Services.ProductServices
         public void Update(Product product)
         {
             Product productToUpdate = GetById(product.Id); // TODO - sadece ID
-            if (product.CreatedOnUtc != null) { productToUpdate.CreatedOnUtc = product.CreatedOnUtc; }
-            productToUpdate.UnitPrice = product.UnitPrice;
-            //productToUpdate.DeletedOnUtc = product.DeletedOnUtc;
-            productToUpdate.FullDescription = product.FullDescription;
-            productToUpdate.ImageUrl = product.ImageUrl;
-            productToUpdate.IsActive = product.IsActive;
-            productToUpdate.IsDeleted = product.IsDeleted;
-            productToUpdate.MerchantId = product.MerchantId;
             productToUpdate.Name = product.Name;
-            productToUpdate.Quantity = product.Quantity;
             productToUpdate.ShortDescription = product.ShortDescription;
-            productToUpdate.ShowOnHomePage = product.ShowOnHomePage;
+            productToUpdate.FullDescription = product.FullDescription;
+            productToUpdate.UnitPrice = product.UnitPrice;
+            productToUpdate.Quantity = product.Quantity;
             productToUpdate.Sku = product.Sku;
+            productToUpdate.ImageUrl = product.ImageUrl;
             productToUpdate.UpdatedOnUtc = DateTime.Now;
+
+            productToUpdate.IsActive = product.IsActive;
+            productToUpdate.ShowOnHomePage = product.ShowOnHomePage;
+            productToUpdate.IsDeleted = product.IsDeleted;
+
+            //productToUpdate.MerchantId = product.MerchantId;
+            
             _productRepository.Update(product);
         }
 
