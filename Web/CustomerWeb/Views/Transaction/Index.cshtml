@@ -4,7 +4,7 @@
 
 @model IEnumerable<Core.Domain.Product>
 
-@if (ViewBag.successMessage == "Success")
+@if (ViewBag.Response == "Success")
 {
     <script>
         $(document).ready(function () {
@@ -12,20 +12,18 @@
         });
     </script>
 }
-else if (ViewBag.successMessage == "Failed")
+else if (ViewBag.Response != "")
 {
-    <script>
-        $(document).ready(function () {
-            alert('Failed');
-        });
-    </script>
+
 }
-
-
-
-
-
-
+else if (ViewBag.Response != "Success")
+{
+<script type="text/javascript">
+        //$(document).ready(function() {
+          alert('@ViewBag.Response');
+    //});
+</script>
+}
 
 <form asp-controller="Transaction" asp-action="Complete" method="post">
     <div class="row">
@@ -34,13 +32,7 @@ else if (ViewBag.successMessage == "Failed")
                 <tbody>
                     @foreach (var item in Model)
                     {
-
-
                         <tr>
-
-
-
-
                             <td width="100">
                                 <a id="product" href="#" onclick="additem('@item.Id','@item.Name','@item.UnitPrice')">
                                     @item.Name
@@ -52,8 +44,6 @@ else if (ViewBag.successMessage == "Failed")
 
                                 </a>
                             </td>
-
-
                             @*<td>
                                     <a href="@Url.Action(" Edit","Product", new { id=item.Id })" class="">@item.Name</a>
                                 </td>
@@ -65,10 +55,7 @@ else if (ViewBag.successMessage == "Failed")
                     }
                 </tbody>
             </table>
-
-
         </div>
-
         <div class="col-sm-6" id="cart" style="background-color:aquamarine;">
         </div>
         <div class="col-sm-6" style="background-color:lavender;">

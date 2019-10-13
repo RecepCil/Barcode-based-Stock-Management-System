@@ -65,7 +65,7 @@
         <label asp-for="IsActive" class="control-label" style="float:left;"></label>
     </div>
     <div class="col-md-3">
-        <input asp-for="IsActive" class="form-control" style="float:left;" value="@Model.IsActive" />
+        <input asp-for="IsActive" class="form-control" style="float:left;" />    @*value="@Model.IsActive"*@
         <span asp-validation-for="IsActive" class="text-danger"></span>
     </div>
     <div class="col-md-8">
@@ -75,22 +75,12 @@
         <label asp-for="ShowOnHomePage" class="control-label" style="float:left;"></label>
     </div>
     <div class="col-md-3">
-
-        <input asp-for="ShowOnHomePage" class="form-control" value="@Model.ShowOnHomePage" />
-
-
-        @*<input asp-for="ShowOnHomePage" class="form-control" style="float:left;" value="@Model.ShowOnHomePage" />*@
+        <input asp-for="ShowOnHomePage" class="form-control" style="float:left;" /> @*value="@Model.ShowOnHomePage"*@
         <span asp-validation-for="ShowOnHomePage" class="text-danger"></span>
     </div>
 </div>
 
 }
-
-
-
-
-
-
 
 
 
@@ -102,19 +92,3 @@
         </center>
     </div>
 </div>
-
-@*<div class="form-group">
-        <label asp-for="IsActive" class="control-label"></label>
-        <input asp-for="IsActive" class="form-control" value="@Model.IsActive" />
-        <span asp-validation-for="IsActive" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="ShowOnHomePage" class="control-label"></label>
-        <input asp-for="ShowOnHomePage" class="form-control" value="@Model.ShowOnHomePage" />
-        <span asp-validation-for="ShowOnHomePage" class="text-danger"></span>
-    </div>*@
-
-@*<div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>*@

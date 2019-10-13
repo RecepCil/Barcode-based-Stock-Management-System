@@ -62,7 +62,7 @@ namespace CustomerWeb.Controllers
             {
                 await signInManager.SignInAsync(user, isPersistent: false);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Transaction");
             }
                 
 
@@ -73,7 +73,7 @@ namespace CustomerWeb.Controllers
         public async Task<IActionResult> Logout()
         {
             await this.signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Transaction");
         }
 
         public IActionResult AccessDenied()
@@ -123,7 +123,7 @@ namespace CustomerWeb.Controllers
                     subject: "Confirm Email",
                     message: callbackurl);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Transaction");
             }
 
             return View(model);
@@ -132,7 +132,7 @@ namespace CustomerWeb.Controllers
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Transaction");
 
             var user = await this.userManager.FindByIdAsync(userId);
             if (user == null)
@@ -142,7 +142,7 @@ namespace CustomerWeb.Controllers
             if (result.Succeeded)
                 return View("ConfirmEmail");
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Transaction");
         }
 
         #endregion

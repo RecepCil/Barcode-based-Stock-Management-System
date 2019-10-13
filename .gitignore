@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/BarcodeApp/config/applicationhost.config
+/.vs/BarcodeApp/DesignTimeBuild/.dtbcache
+/Web/CustomerWeb/wwwroot/Images
+/.vs/BarcodeApp/v16/Server/sqlite3/storage.ide-wal
+/.vs/BarcodeApp/v16/Server/sqlite3/storage.ide-shm
+/.vs/BarcodeApp/v16/Server/sqlite3/storage.ide
+/.vs/BarcodeApp/v16/Server/sqlite3/db.lock

@@ -31,10 +31,10 @@ namespace CustomerWeb.Controllers
 
         #endregion
 
-        public IActionResult Index(string successMessage = "")
+        public IActionResult Index(string response = "")
         {
-            if(!string.IsNullOrEmpty(successMessage))
-                ViewBag.successMessage = successMessage;
+            if(!string.IsNullOrEmpty(response))
+                ViewBag.Response = response;
 
             var model = _productService.GetAll(true);
             return View(model.ToList());
@@ -43,7 +43,7 @@ namespace CustomerWeb.Controllers
         [Route("/Transaction/Complete")]
         public IActionResult Complete(Models.TransactionModel products)
         {
-            string successMessage = string.Empty;
+            string response = string.Empty;
 
             Dictionary<int, int> dictionary = new Dictionary<int, int>();
 
@@ -72,27 +72,22 @@ namespace CustomerWeb.Controllers
                     dictionary.Add(item.Id,item.Quantity);
                 }
 
-                var response = _transactionService.CheckStore(dictionary);
+                response = _transactionService.CheckStore(dictionary);
 
                 if (string.Equals(response, "Success"))
                 {
                     _transactionService.UpdateStore(dictionary);
-                    successMessage = "Success";
+                    response = "Success";
                     transaction.Status = "Success";
                     _transactionService.Update(transaction);
-                }
-                else
-                {
-                    //successMessage = response;
-                    successMessage = "Failed";
                 }
             }
             else
             {
-                successMessage = "Failed";
+                response = "Failed";
             }
 
-            return RedirectToAction("Index", new { successMessage });
+            return RedirectToAction("Index", new { response });
         }
     }
 }

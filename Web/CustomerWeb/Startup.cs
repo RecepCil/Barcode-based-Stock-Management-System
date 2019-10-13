@@ -96,7 +96,7 @@ namespace CustomerWeb
                 options.SlidingExpiration = true;
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+        
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddIdentity<AppIdentityUser, AppIdentityRole>()
                     .AddEntityFrameworkStores<DataContext>()
@@ -127,7 +127,7 @@ namespace CustomerWeb
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Transaction}/{action=Index}/{id?}");
             });            
   
             //app.UseMvcWithDefaultRoute();
