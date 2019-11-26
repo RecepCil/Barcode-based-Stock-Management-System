@@ -8,21 +8,15 @@
 {
     <script>
         $(document).ready(function () {
-            alert('Success');
+            alert('İşleminiz başarıyla gerçekleşti!');
         });
     </script>
 }
-else if (ViewBag.Response != "")
+else if (ViewBag.Response != null)
 {
-
-}
-else if (ViewBag.Response != "Success")
-{
-<script type="text/javascript">
-        //$(document).ready(function() {
+    <script type="text/javascript">
           alert('@ViewBag.Response');
-    //});
-</script>
+    </script>
 }
 
 <form asp-controller="Transaction" asp-action="Complete" method="post">
@@ -40,7 +34,7 @@ else if (ViewBag.Response != "Success")
                             </td>
                             <td width="100">
                                 <a href=" @item.ImageUrl">
-                                    <img src="~/Images/@item.ImageUrl">
+                                    <img src="~/Images/@item.ImageUrl" width="250px">
 
                                 </a>
                             </td>
@@ -64,7 +58,7 @@ else if (ViewBag.Response != "Success")
         <div class="col-sm-6" style="background-color:aquamarine;">
             <center>
                 <a><b>TOTAL</b></a>
-                <input class="form-control" style="width:30%;" id="products.Total" name="products.Total" placeholder="0"  />
+                <input class="form-control" style="width:30%;" id="products.Total" name="products.Total" placeholder="0" />
             </center>
 
         </div>

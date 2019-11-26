@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Data;
 using Core.Domain;
+using Core.Enum;
+using X.PagedList;
 
 namespace Services.TransactionServices
 {
@@ -23,18 +25,20 @@ namespace Services.TransactionServices
             this._transactionRepository = _transactionRepository;
         }
 
+        #endregion
+
+        #region Methods
+
         public string CheckStore(Dictionary<int, int> dictionary)
         {
             foreach (var item in dictionary)
             {
                 Product product = _productRepository.GetById(item.Key);
                 if (product.Quantity < item.Value)
-                    return "Yeterli miktarda "+product.Name+" ürünü yok.";
+                    return "Yeterli miktarda "+product.Name+" yok.";
             }
             return "Success";
         }
-
-        #region Methods
 
         public Transaction Insert(Transaction transaction)
         {
@@ -48,17 +52,18 @@ namespace Services.TransactionServices
             _transactionRepository.Update(transaction);
         }
 
-        public IEnumerable<Transaction> GetAll(DateTime startDate=default, DateTime endDate=default)
+        public IEnumerable<Transaction> GetAll(string startDate, string endDate, string transactionType, int activePage = 0, int recordsPerPage = 10)
         {
             var result = _transactionRepository.Table;
+            // Type Check For dates TODO
+            if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
+                result = result.Where(x => x.TransactionDate >= Convert.ToDateTime(startDate) && x.TransactionDate <= Convert.ToDateTime(endDate));
 
-            if (startDate != default && endDate != default)
-                result = result.Where(x => x.TransactionDate >= startDate && x.TransactionDate <= endDate);
+            if (!string.IsNullOrEmpty(transactionType))   // CHECK
+                result = result.Where(x => x.ActionType == transactionType);
 
-            return result;
+            return result.OrderByDescending(x => x.TransactionDate).ToPagedList(activePage, recordsPerPage);
         }
-
-        #endregion
 
         public void UpdateStore(Dictionary<int, int> dictionary)
         {

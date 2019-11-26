@@ -40,8 +40,10 @@ namespace Services.ProductServices
 
         public IEnumerable<Product> GetAll(bool OnlyOftUsed)
         {
+            // Product Management
             var result = _productRepository.Table.Where(x => x.IsActive && !x.IsDeleted);
 
+            // Transaction
             if (OnlyOftUsed)
                 result = result.Where(x=>x.ShowOnHomePage && x.IsActive && !x.IsDeleted);
 

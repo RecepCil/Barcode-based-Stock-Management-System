@@ -28,13 +28,10 @@ C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\V
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Account\Register.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Account\ResetPassword.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Account\ResetPasswordConfirm.g.cshtml.cs
-C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
-C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Home\Privacy.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Product\Create.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Product\Edit.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Product\List.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Product\_CreateOrUpdate.g.cshtml.cs
-C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Report\Index.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Report\List.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
@@ -49,3 +46,6 @@ C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Custome
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\CustomerWeb.csproj.CopyComplete
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\CustomerWeb.dll
 C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\CustomerWeb.pdb
+C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\bin\Debug\netcoreapp2.2\Framework.dll
+C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\bin\Debug\netcoreapp2.2\Framework.pdb
+C:\Users\rcil\Desktop\BarcodeApp\Web\CustomerWeb\obj\Debug\netcoreapp2.2\Razor\Views\Report\Search.g.cshtml.cs

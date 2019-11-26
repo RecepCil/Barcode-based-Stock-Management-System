@@ -31,10 +31,13 @@ namespace CustomerWeb.Controllers
 
         #endregion
 
-        public IActionResult Index(string response = "")
+        public IActionResult Index()
         {
-            if(!string.IsNullOrEmpty(response))
-                ViewBag.Response = response;
+            if(TempData["response"]!=null)
+            { 
+                ViewBag.Response = TempData["response"].ToString();
+                TempData["response"] = null;
+            }
 
             var model = _productService.GetAll(true);
             return View(model.ToList());
@@ -87,7 +90,9 @@ namespace CustomerWeb.Controllers
                 response = "Failed";
             }
 
-            return RedirectToAction("Index", new { response });
+            TempData["response"] = response;
+
+            return RedirectToAction("Index");
         }
     }
 }

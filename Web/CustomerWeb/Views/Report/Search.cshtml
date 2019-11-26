@@ -1,0 +1,84 @@
+﻿@using X.PagedList.Mvc.Core;
+@using Microsoft.AspNetCore.Routing;
+@using X.PagedList;
+@using Core.Domain;
+@using Core.Enum;
+
+@model IPagedList<Core.Domain.Transaction>
+
+<div class="card-body">
+    <div class="row">
+        <div class="col-sm-6 col-lg-4">
+            <div class="form-group row">
+                <label for="startDate" class="col-sm-3 text-right control-label col-form-label">Start Date</label>
+                <div class="col-sm-9">
+
+                    @if (string.IsNullOrEmpty(Context.Request.Query["startDate"].ToString()))
+                    {
+                        <input id="startDate" name="startDate" type="date" class="form-control" value="@ViewBag.startDate" />
+                    }
+                    else
+                    {
+                        <input id="startDate" name="startDate" type="date" class="form-control" value='@Context.Request.Query["startDate"].ToString()' />
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <div class="form-group row">
+                <label for="endDate" class="col-sm-3 text-right control-label col-form-label">End Date</label>
+                <div class="col-sm-9">
+
+                    @if (string.IsNullOrEmpty(Context.Request.Query["endDate"].ToString()))
+                    {
+                        <input id="endDate" name="endDate" type="date" class="form-control" value="@ViewBag.endDate" />
+                    }
+                    else
+                    {
+                        <input id="endDate" name="endDate" type="date" class="form-control" value='@Context.Request.Query["endDate"]' />
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-lg-4">
+            <div class="form-group row">
+                <label for="providerSku" class="col-sm-3 text-right control-label col-form-label">Provider Sku</label>
+                <div class="col-sm-9">
+
+                    @{
+                        List<SelectListItem> listItems = new List<SelectListItem>();
+
+                        foreach (var item in TransactionType.GetNames(typeof(TransactionType)).ToList())
+                        {
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = item,
+                                Value = item
+                            });
+                        }
+                    }
+                    
+                    @Html.DropDownList("selectedTransaction", listItems, "Select transaction type!", new { @class = "form-control", })
+                
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-lg-4">
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-sm btn-info text-md-left">
+                        <i class="fa fa-search">   </i> Search
+                    </button>
+                    <a href="@Url.Action("List")" class="btn btn-sm btn-danger">Clear Filter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

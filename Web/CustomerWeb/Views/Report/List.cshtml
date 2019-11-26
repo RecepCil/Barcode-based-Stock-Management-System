@@ -1,13 +1,72 @@
-﻿
+﻿@model IPagedList<Core.Domain.Transaction>
+@using Microsoft.AspNetCore.Routing;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+
 @{
     ViewData["Title"] = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <form asp-controller="Report" asp-action="List" method="post">
-        Enter a date before 1980-01-01:<br>
-        <input type="date" name="startDate"><br><br>
-        Enter a date after 2000-01-01:<br>
-        <input type="date" name="endDate"><br><br>
-        <input type="submit">
-    </form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <form class="form-horizontal" asp-controller="Report" asp-action="List" method="get">
+                    @await Html.PartialAsync("Search",model:Model)
+                </form>           
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <form class="form-horizontal" asp-controller="Report" asp-action="List" method="get">
+                    @*@await Html.PartialAsync("Search")*@
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead class="bg-secondary text-white">
+            <tr>
+                <th>ActionType</th>
+                <th>Id</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Transaction Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="100">@item.ActionType</td>
+                    <td width="140">@item.Id</td>
+                    <td width="140">@item.Status</td>
+                    <td width="140">@item.Total ₺</td>
+                    <td width="140">@item.TransactionDate</td>
+
+                    <td style="text-align:right" width="160">
+                        <a href="@Url.Action("Detail","Report", new { id = item.Id })" class="btn btn-sm btn-info">Detail</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @{
+        RouteValueDictionary tRVD = new RouteValueDictionary();
+        foreach (var key in Context.Request.Query.ToList())
+        {
+            tRVD[key.Key] = Context.Request.Query[key.Key].ToString();
+        }
+    }
+    <div class="text-right text-sm">@Html.PagedListPager((IPagedList)Model, page => { tRVD["p"] = page; return @Url.Action("List", tRVD); })</div>
+
+</div>

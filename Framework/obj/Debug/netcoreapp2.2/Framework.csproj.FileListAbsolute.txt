@@ -1,0 +1,9 @@
+C:\Users\rcil\Desktop\BarcodeApp\Framework\bin\Debug\netcoreapp2.2\Framework.deps.json
+C:\Users\rcil\Desktop\BarcodeApp\Framework\bin\Debug\netcoreapp2.2\Framework.dll
+C:\Users\rcil\Desktop\BarcodeApp\Framework\bin\Debug\netcoreapp2.2\Framework.pdb
+C:\Users\rcil\Desktop\BarcodeApp\Framework\obj\Debug\netcoreapp2.2\Framework.csproj.CoreCompileInputs.cache
+C:\Users\rcil\Desktop\BarcodeApp\Framework\obj\Debug\netcoreapp2.2\Framework.AssemblyInfoInputs.cache
+C:\Users\rcil\Desktop\BarcodeApp\Framework\obj\Debug\netcoreapp2.2\Framework.AssemblyInfo.cs
+C:\Users\rcil\Desktop\BarcodeApp\Framework\obj\Debug\netcoreapp2.2\Framework.dll
+C:\Users\rcil\Desktop\BarcodeApp\Framework\obj\Debug\netcoreapp2.2\Framework.pdb
+C:\Users\rcil\Desktop\BarcodeApp\Framework\obj\Debug\netcoreapp2.2\Framework.csprojAssemblyReference.cache

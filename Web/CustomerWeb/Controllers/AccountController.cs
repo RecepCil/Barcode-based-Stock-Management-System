@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CustomerWeb.Models.Security;
+﻿using CustomerWeb.Models.Security;
 using Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Services.Email;
+using System;
+using System.Threading.Tasks;
 
 namespace CustomerWeb.Controllers
 {

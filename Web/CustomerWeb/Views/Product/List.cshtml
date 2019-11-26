@@ -23,50 +23,62 @@
 </div>
 
 <div class="container-fluid">
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <form class="form-horizontal" asp-controller="Product" asp-action="List" method="get">
-                @*@await Html.PartialAsync("Search")*@
-            </form>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <form class="form-horizontal" asp-controller="Product" asp-action="List" method="get">
+                    @*@await Html.PartialAsync("Search")*@
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<table class="table">
-    <thead class="bg-secondary text-white">
-        <tr>
-            <th>Sku</th>
-            <th>Name</th>
-            <th>Photo</th>
-            <th>Stock</th>
-            <th>Unit Price</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td width="100">@item.Sku</td>
-            <td width="140">@item.Name</td>
-            <td width="140"> <img src="~/Images/@item.ImageUrl" width="100" height="100" /> </td>
-            <td width="140">@item.Quantity</td>
-            <td width="140">@item.UnitPrice ₺</td>
-            <td style="text-align:right" width="160">
-                <a href="@Url.Action("Edit","Product", new { id = item.Id })" class="btn btn-sm btn-info">Edit</a>
-                <a href="@Url.Action("Delete","Product", new { id = item.Id })" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the record?')">Delete</a>
-            </td>
-        </tr>
+    <table class="table">
+        <thead class="bg-secondary text-white">
+            <tr>
+                <th>Sku</th>
+                <th>Name</th>
+                <th>Photo</th>
+                <th>Stock</th>
+                <th>Unit Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var bgcolor = "white";
+
+                if (item.Quantity == 0)
+                {
+                    bgcolor = "red";
+                }
+                else if (item.Quantity < 10)
+                {
+                    bgcolor = "yellow";
+                }
+
+                <tr style="background-color:@bgcolor;">
+                    <td width="100">@item.Sku</td>
+                    <td width="140">@item.Name</td>
+                    <td width="140"> <img src="~/Images/@item.ImageUrl" width="100" height="100" /> </td>
+                    <td width="140">@item.Quantity</td>
+                    <td width="140">@item.UnitPrice ₺</td>
+                    <td style="text-align:right" width="160">
+                        <a href="@Url.Action("Edit","Product", new { id = item.Id })" class="btn btn-sm btn-info">Edit</a>
+                        <a href="@Url.Action("Delete","Product", new { id = item.Id })" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the record?')">Delete</a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+    @*@{
+            RouteValueDictionary tRVD = new RouteValueDictionary();
+            foreach (var key in Context.Request.Query.ToList())
+            {
+                tRVD[key.Key] = Context.Request.Query[key.Key].ToString();
+            }
         }
-    </tbody>
-</table>
-@*@{
-    RouteValueDictionary tRVD = new RouteValueDictionary();
-    foreach (var key in Context.Request.Query.ToList())
-    {
-        tRVD[key.Key] = Context.Request.Query[key.Key].ToString();
-    }
-}
-<div class="text-right text-sm">@Html.PagedListPager((IPagedList)Model, page => { tRVD["p"] = page; return @Url.Action("List", tRVD); })</div>*@
+        <div class="text-right text-sm">@Html.PagedListPager((IPagedList)Model, page => { tRVD["p"] = page; return @Url.Action("List", tRVD); })</div>*@
 </div>
