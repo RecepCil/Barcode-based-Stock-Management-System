@@ -28,8 +28,8 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework\Framework.csproj" />
     <ProjectReference Include="..\..\Libraries\Data\Data.csproj" />
+    <ProjectReference Include="..\..\Libraries\Framework\Framework.csproj" />
     <ProjectReference Include="..\..\Libraries\Services\Services.csproj" />
   </ItemGroup>
 

@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Framework\\Framework.csproj",
+      "projectUniqueName": "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Libraries\\Framework\\Framework.csproj",
       "projectName": "Framework",
-      "projectPath": "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Framework\\Framework.csproj",
+      "projectPath": "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Libraries\\Framework\\Framework.csproj",
       "packagesPath": "C:\\Users\\rcil\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Framework\\obj\\",
+      "outputPath": "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Libraries\\Framework\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

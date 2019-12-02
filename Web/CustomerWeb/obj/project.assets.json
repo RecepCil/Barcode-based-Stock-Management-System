@@ -15652,8 +15652,8 @@
     },
     "Framework/1.0.0": {
       "type": "project",
-      "path": "../../Framework/Framework.csproj",
-      "msbuildProject": "../../Framework/Framework.csproj"
+      "path": "../../Libraries/Framework/Framework.csproj",
+      "msbuildProject": "../../Libraries/Framework/Framework.csproj"
     },
     "Services/1.0.0": {
       "type": "project",
@@ -15713,11 +15713,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Framework\\Framework.csproj": {
-              "projectPath": "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Framework\\Framework.csproj"
-            },
             "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Libraries\\Data\\Data.csproj": {
               "projectPath": "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Libraries\\Data\\Data.csproj"
+            },
+            "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Libraries\\Framework\\Framework.csproj": {
+              "projectPath": "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Libraries\\Framework\\Framework.csproj"
             },
             "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Libraries\\Services\\Services.csproj": {
               "projectPath": "C:\\Users\\rcil\\Desktop\\BarcodeApp\\Libraries\\Services\\Services.csproj"
