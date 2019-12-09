@@ -5,84 +5,89 @@
 
 @model ProductModel;
 
-<div class="form-group">
-    <label asp-for="Name" class="control-label"></label>
-    <input asp-for="Name" class="form-control" value="@Model.Name" />
-    <span asp-validation-for="Name" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-    <label asp-for="ShortDescription" class="control-label"></label>
-    <input asp-for="ShortDescription" class="form-control" value="@Model.ShortDescription" />
-    <span asp-validation-for="ShortDescription" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-    <label asp-for="FullDescription" class="control-label"></label>
-    <input asp-for="FullDescription" class="form-control" value="@Model.FullDescription" />
-    <span asp-validation-for="FullDescription" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-    <label asp-for="UnitPrice" class="control-label"></label>
-    <input asp-for="UnitPrice" class="form-control" value="@Model.UnitPrice" />
-    <span asp-validation-for="UnitPrice" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-    <label asp-for="Quantity" class="control-label"></label>
-    <input asp-for="Quantity" class="form-control" value="@Model.Quantity" />
-    <span asp-validation-for="Quantity" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-    <label asp-for="Sku" class="control-label"></label>
-    <input asp-for="Sku" class="form-control" value="@Model.Sku" />
-    <span asp-validation-for="Sku" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-    <div class="row">
-        <div class="col-md-3">
-            <input type="file" value="False" data-val="true" data-val-required="The Image field is required." asp-for="Image" style="height:34px;" class="form-control-file">
-            <span class="text-danger field-validation-valid" data-valmsg-for="Image" data-valmsg-replace="true"></span>
+<h4 class="card-title">Create New Product</h4>
+<div class="basic-form">
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" value="@Model.Name" placeholder="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
         </div>
-        <div class="col-md-9">
-            <input asp-for="ImageUrl" class="form-control" style="background-color:white;border:0;" value="@Model.ImageUrl" hidden="hidden" />
-            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="FullDescription" class="control-label"></label>
+                <input asp-for="FullDescription" class="form-control" value="@Model.FullDescription" placeholder="Full Description" />
+                <span asp-validation-for="FullDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="ShortDescription" class="control-label"></label>
+                <input asp-for="ShortDescription" class="form-control" value="@Model.ShortDescription" placeholder="Short Description" />
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-</div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="UnitPrice" class="control-label"></label>
+                <input asp-for="UnitPrice" class="form-control" value="@Model.UnitPrice" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" value="@Model.Quantity" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Sku" class="control-label"></label>
+            <input asp-for="Sku" class="form-control" value="@Model.Sku" placeholder="Sku" />
+            <span asp-validation-for="Sku" class="text-danger"></span>
+        </div>
 
-@if (Model.Id != 0)
-{
 
-<div class="row">
-    <div class="col-md-1">
-        <label asp-for="IsActive" class="control-label" style="float:left;"></label>
-    </div>
-    <div class="col-md-3">
-        <input asp-for="IsActive" class="form-control" style="float:left;" />    @*value="@Model.IsActive"*@
-        <span asp-validation-for="IsActive" class="text-danger"></span>
-    </div>
-    <div class="col-md-8">
-        <a></a>
-    </div>
-    <div class="col-md-1">
-        <label asp-for="ShowOnHomePage" class="control-label" style="float:left;"></label>
-    </div>
-    <div class="col-md-3">
-        <input asp-for="ShowOnHomePage" class="form-control" style="float:left;" /> @*value="@Model.ShowOnHomePage"*@
-        <span asp-validation-for="ShowOnHomePage" class="text-danger"></span>
-    </div>
-</div>
+        @if (Model.Id != 0)
+        {
 
-}
+            <div class="row">
+                <div class="col-md-1">
+                    <label asp-for="IsActive" class="control-label" style="float:left;"></label>
+                </div>
+                <div class="col-md-3">
+                    <input asp-for="IsActive" class="form-control" style="float:left;" />    @*value="@Model.IsActive"*@
+                    <span asp-validation-for="IsActive" class="text-danger"></span>
+                </div>
+                <div class="col-md-8">
+                    <a></a>
+                </div>
+                <div class="col-md-1">
+                    <label asp-for="ShowOnHomePage" class="control-label" style="float:left;"></label>
+                </div>
+                <div class="col-md-3">
+                    <input asp-for="ShowOnHomePage" class="form-control" style="float:left;" /> @*value="@Model.ShowOnHomePage"*@
+                    <span asp-validation-for="ShowOnHomePage" class="text-danger"></span>
+                </div>
+            </div>
 
-<div class="form-group row">
-    <div class="col-md-12">
-        <center>
-            <input type="submit" class="btn btn-primary" title="Submit">
-        </center>
-    </div>
+        }
+
+
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                @*<button type="button"><span class="btn-icon-left"><i class="fa fa-upload color-success"></i> </span>Upload</button>*@
+                <input type="file" value="False" data-val="true" data-val-required="The Image field is required." asp-for="Image" style="height:34px;"
+                       class="btn mb-1 btn-rounded btn-success">
+
+                @*<span class="btn-icon-left"><i class="fa fa-upload color-success"></i> </span>Upload*@
+            </div>
+            <div class="form-group col-md-8">
+                <div style="top: 0;bottom: 0;left: 0;right: 0;width: 100%;height: 30%;margin: auto;"></div>
+                <input asp-for="ImageUrl" class="form-control" style="background-color:white;border:0;" value="@Model.ImageUrl" hidden="hidden" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <button type="submit" class="btn btn-success" style="width:100%">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>

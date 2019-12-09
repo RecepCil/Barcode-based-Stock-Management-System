@@ -6,79 +6,69 @@
 
 @model IPagedList<Core.Domain.Transaction>
 
-<div class="card-body">
-    <div class="row">
-        <div class="col-sm-6 col-lg-4">
-            <div class="form-group row">
-                <label for="startDate" class="col-sm-3 text-right control-label col-form-label">Start Date</label>
-                <div class="col-sm-9">
-
-                    @if (string.IsNullOrEmpty(Context.Request.Query["startDate"].ToString()))
-                    {
-                        <input id="startDate" name="startDate" type="date" class="form-control" value="@ViewBag.startDate" />
-                    }
-                    else
-                    {
-                        <input id="startDate" name="startDate" type="date" class="form-control" value='@Context.Request.Query["startDate"].ToString()' />
-                    }
-
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-lg-4">
-            <div class="form-group row">
-                <label for="endDate" class="col-sm-3 text-right control-label col-form-label">End Date</label>
-                <div class="col-sm-9">
-
-                    @if (string.IsNullOrEmpty(Context.Request.Query["endDate"].ToString()))
-                    {
-                        <input id="endDate" name="endDate" type="date" class="form-control" value="@ViewBag.endDate" />
-                    }
-                    else
-                    {
-                        <input id="endDate" name="endDate" type="date" class="form-control" value='@Context.Request.Query["endDate"]' />
-                    }
-
-                </div>
-            </div>
-        </div>
+<div class="form-row" style="padding:20px;">
+    <div class="form-group col-md-2">
+        <label for="startDate" class="text-right control-label col-form-label">Start Date</label>
     </div>
-    <div class="row">
-        <div class="col-sm-6 col-lg-4">
-            <div class="form-group row">
-                <label for="providerSku" class="col-sm-3 text-right control-label col-form-label">Provider Sku</label>
-                <div class="col-sm-9">
+    <div class="col-md-3">
 
-                    @{
-                        List<SelectListItem> listItems = new List<SelectListItem>();
+        @if (string.IsNullOrEmpty(Context.Request.Query["startDate"].ToString()))
+        {
+            <input id="startDate" name="startDate" type="date" class="form-control" value="@ViewBag.startDate" />
+        }
+        else
+        {
+            <input id="startDate" name="startDate" type="date" class="form-control" value='@Context.Request.Query["startDate"].ToString()' />
+        }
 
-                        foreach (var item in TransactionType.GetNames(typeof(TransactionType)).ToList())
-                        {
-                            listItems.Add(new SelectListItem
-                            {
-                                Text = item,
-                                Value = item
-                            });
-                        }
-                    }
-                    
-                    @Html.DropDownList("selectedTransaction", listItems, "Select transaction type!", new { @class = "form-control", })
-                
-                </div>
-            </div>
-        </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6 col-lg-4">
-            <div class="form-group row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-9">
-                    <button type="submit" class="btn btn-sm btn-info text-md-left">
-                        <i class="fa fa-search">   </i> Search
-                    </button>
-                    <a href="@Url.Action("List")" class="btn btn-sm btn-danger">Clear Filter</a>
-                </div>
-            </div>
-        </div>
+    <div class="col-md-1"></div>
+    <div class="form-group col-md-2">
+        <label for="endDate" class="text-right control-label col-form-label">End Date</label>
+    </div>
+    <div class="col-md-3">
+
+        @if (string.IsNullOrEmpty(Context.Request.Query["endDate"].ToString()))
+        {
+            <input id="endDate" name="endDate" type="date" class="form-control" value="@ViewBag.endDate" />
+        }
+        else
+        {
+            <input id="endDate" name="endDate" type="date" class="form-control" value='@Context.Request.Query["endDate"]' />
+        }
+
+    </div>
+    <div class="col-md-1"></div>
+    <div class="form-group col-md-2">
+        <label for="providerSku" class="text-right control-label col-form-label">Transaction Type</label>
+    </div>
+    <div class="col-md-3">
+
+        @{
+            List<SelectListItem> listItems = new List<SelectListItem>();
+
+            foreach (var item in TransactionType.GetNames(typeof(TransactionType)).ToList())
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = item,
+                    Value = item
+                });
+            }
+        }
+
+        @Html.DropDownList("selectedTransaction", listItems, "Select transaction type!", new { @class = "form-control", })
+
+    </div>
+    <div class="col-md-7"></div>
+    <div class="col-md-6"></div>
+
+    <div class="form-group col-md-3">
+        <button type="submit" class="btn btn-sm btn-info" style="float:right;">
+            <i class="fa fa-search">   </i> Search
+        </button>
+    </div>
+    <div class="form-group col-md-3">
+        <a href="@Url.Action("List")" class="btn btn-sm btn-danger">Clear Filter</a>
     </div>
 </div>

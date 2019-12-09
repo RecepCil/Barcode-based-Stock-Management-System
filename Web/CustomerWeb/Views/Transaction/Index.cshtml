@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
 }
 
 @model IEnumerable<Core.Domain.Product>
@@ -20,73 +21,74 @@ else if (ViewBag.Response != null)
 }
 
 <form asp-controller="Transaction" asp-action="Complete" method="post">
-    <div class="row">
-        <div class="col-sm-6" style="background-color:lavender;">
-            <table class="table">
-                <tbody>
+
+    <div class="content-body row">
+        <div class="col-md-6">
+            <div class="container-fluid mt-3">
+                <div class="row">
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td width="100">
-                                <a id="product" href="#" onclick="additem('@item.Id','@item.Name','@item.UnitPrice')">
-                                    @item.Name
-                                </a>
-                            </td>
-                            <td width="100">
-                                <a href=" @item.ImageUrl">
-                                    <img src="~/Images/@item.ImageUrl" width="250px">
-
-                                </a>
-                            </td>
-                            @*<td>
-                                    <a href="@Url.Action(" Edit","Product", new { id=item.Id })" class="">@item.Name</a>
-                                </td>
-                                <td style="text-align:right" width="160">
-                                    <a href="@Url.Action(" Edit","Product", new { id=item.Id })" class="btn btn-sm btn-info">Edit</a>
-                                    <a href="@Url.Action(" Delete","Product", new { id=item.Id })" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the record?')">Delete</a>
-                                </td>*@
-                        </tr>
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body" style="padding: initial;">
+                                    <div class="text-center">
+                                        <a id="product" href="#" onclick="additem('@item.Id','@item.Name','@item.UnitPrice')">
+                                            <img src="~/Images/@item.ImageUrl" class="rounded-circle" alt="" style="max-height:100px;max-width:100px;">
+                                            <h5 class="mt-0 mb-0">@item.Name</h5>
+                                            <p class="m-0">@item.UnitPrice ₺</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     }
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm-6" id="cart" style="background-color:aquamarine;">
-        </div>
-        <div class="col-sm-6" style="background-color:lavender;">
-        </div>
 
-        <div class="col-sm-6" style="background-color:aquamarine;">
-            <center>
-                <a><b>TOTAL</b></a>
-                <input class="form-control" style="width:30%;" id="products.Total" name="products.Total" placeholder="0" />
-            </center>
-
-        </div>
-        <div class="col-sm-6" style="background-color:lavender;">
-        </div>
-
-        <div class="col-sm-6" style="background-color:aquamarine;">
-
-            <div class="col-sm-12" style="background-color:aquamarine;">
-                <a class="btn btn-primary" style="float:left;" href="javascript: removeItem(0)">Cancel</a>
-                <button class="btn btn-primary" style="float:right;" type="submit">Complete</button>
+                </div>
             </div>
-
         </div>
 
-
-    </div>
-
-
+            @*<div class="col-sm-6" id="cart" style="background-color:aquamarine;">
+            </div>*@
 
 
 
 
-    @*<a onclick="return confirm ('Are you sure want to delete blog?');">
-        <i class="glyphicon glyphicon-remove"></i> Delete
-        </a>*@
-
-
-
-
+            <div class="col-md-6" style="position:relative;">
+                <div class="container-fluid mt-3">
+                    <div class="card" style="position:relative; margin:auto;">
+                        <div class="card-body">
+                            <center><h4 class="card-title">FATURA</h4></center>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped verticle-middle">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Ürün</th>
+                                            <th scope="col">Adet</th>
+                                            <th scope="col">Fiyat</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cart"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="margin:auto; margin-top:10px;">
+                        <div class="card-body">
+                            <center>BARKOD</center>
+                        </div>
+                    </div>
+                    <div class="card" style="margin:auto; margin-top:10px;">
+                        <div class="card-body">
+                            <center>
+                                <h4>Total: </h4>
+                                <h4 id="totalAmount">0 ₺</h4>
+                            </center>
+                            <a class="btn btn-primary" style="float:left;" href="javascript: removeItem(0)">Cancel</a>
+                            <button class="btn btn-primary" style="float:right;" type="submit">Complete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </form>

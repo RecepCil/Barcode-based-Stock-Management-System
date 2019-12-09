@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Transaction\" />
+    <Folder Include="wwwroot\quixlab\" />
   </ItemGroup>
 
 </Project>
