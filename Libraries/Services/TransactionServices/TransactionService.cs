@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Data;
 using Core.Domain;
 using Core.Enum;
+using Services.Models;
 using X.PagedList;
 
 namespace Services.TransactionServices
@@ -29,12 +30,12 @@ namespace Services.TransactionServices
 
         #region Methods
 
-        public string CheckStore(Dictionary<int, int> dictionary)
+        public string CheckStore(ShoppingCart products)
         {
-            foreach (var item in dictionary)
+            foreach (var item in products.itemList)
             {
-                Product product = _productRepository.GetById(item.Key);
-                if (product.Quantity < item.Value)
+                Product product = _productRepository.GetById(item.Id);
+                if (product.Quantity < item.Quantity)
                     return "Yeterli miktarda "+product.Name+" yok.";
             }
             return "Success";
@@ -65,12 +66,12 @@ namespace Services.TransactionServices
             return result.OrderByDescending(x => x.TransactionDate).ToPagedList(activePage, recordsPerPage);
         }
 
-        public void UpdateStore(Dictionary<int, int> dictionary)
+        public void UpdateStore(ShoppingCart products)
         {
-            foreach (var item in dictionary) {
+            foreach (var item in products.itemList) {
 
-                Product product = _productRepository.GetById(item.Key);
-                product.Quantity -= item.Value;
+                Product product = _productRepository.GetById(item.Id);
+                product.Quantity -= item.Quantity;
                 _productRepository.Update(product);
             }
         }

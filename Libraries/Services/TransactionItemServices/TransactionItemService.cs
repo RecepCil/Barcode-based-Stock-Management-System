@@ -21,9 +21,10 @@ namespace Services.TransactionItemServices
         #endregion
 
         #region Methods
-        public void Insert(TransactionItem item)
+        public TransactionItem Insert(TransactionItem item)
         {
-            _transactionItemRepository.Insert(item);
+            item.Id = _transactionItemRepository.Insert(item);
+            return item;
         }
 
         #endregion

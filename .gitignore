@@ -10,6 +10,9 @@
 /.vs/BarcodeApp/v16/Server/sqlite3/storage.ide
 /.vs/BarcodeApp/v16/Server/sqlite3/db.lock
 /Web/CustomerWeb/obj/Release/netcoreapp2.2
+/Web/CustomerWeb/bin/Release/netcoreapp2.2
+/Web/CustomerWeb/obj/Debug/netcoreapp2.2
+/Web/CustomerWeb/bin/Debug/netcoreapp2.2
 /Framework/obj/Release/netcoreapp2.2
 /.vs/BarcodeApp/v16
 /Framework/bin/Release/netcoreapp2.2
@@ -17,10 +20,16 @@
 /Libraries/Core/obj/Release/netstandard2.0
 /Web/CustomerWeb/bin/Release/netcoreapp2.2
 /Libraries/Services/obj/Release/netstandard2.0
+/Libraries/Services/bin/Release/netstandard2.0
+/Libraries/Services/obj/Debug/netstandard2.0
+/Libraries/Services/bin/Debug/netstandard2.0
 /Libraries/Data/bin/Release/netstandard2.0
 /Libraries/Data/obj/Release/netstandard2.0
+/Libraries/Data/bin/Debug/netstandard2.0
+/Libraries/Data/obj/Debug/netstandard2.0
 /Libraries/Services/bin/Release/netstandard2.0
 /Libraries/Framework/obj/Release/netcoreapp2.2
 /Libraries/Framework/obj/Debug/netcoreapp2.2
+/Libraries/Core/obj/Debug/netcoreapp2.0
 /Libraries/Framework/bin/Release/netcoreapp2.2
 /Libraries/Framework/bin/Debug/netcoreapp2.2

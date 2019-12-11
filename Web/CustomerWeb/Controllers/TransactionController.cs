@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Services.Models;
 using Services.ProductServices;
 using Services.TransactionItemServices;
 using Services.TransactionServices;
@@ -44,11 +45,9 @@ namespace CustomerWeb.Controllers
         }
 
         [Route("/Transaction/Complete")]
-        public IActionResult Complete(Models.TransactionModel products)
+        public IActionResult Complete(ShoppingCart products)
         {
             string response = string.Empty;
-
-            Dictionary<int, int> dictionary = new Dictionary<int, int>();
 
             if (ModelState.IsValid && ModelState.Count > 0)
             {
@@ -56,33 +55,34 @@ namespace CustomerWeb.Controllers
                 {
                     ActionType = "Selling",
                     IsDeleted = false,
-                    Total = Math.Round(products.Total,2),
                     TransactionDate = DateTime.UtcNow,
                     Status = "Requested"
                 });
 
-                foreach (var item in products.itemList)
+                response = _transactionService.CheckStore(products);
+
+                if(string.Equals(response, "Success"))
                 {
-                    _transactionItemService.Insert(new Core.Domain.TransactionItem
+                    foreach (var item in products.itemList)
                     {
-                        ProductId = item.Id,
-                        Quantity = item.Quantity,
-                        UnitPrice = Math.Round(item.UnitPrice, 2),
-                        AmountToPay = Math.Round(Convert.ToDecimal(item.AmountToPay), 2),
-                        TransactionId = transaction.Id
-                    });
+                        Core.Domain.TransactionItem transactionItem = _transactionItemService.Insert(new Core.Domain.TransactionItem
+                        {
+                            ProductId = item.Id,
+                            Quantity = item.Quantity,
+                            UnitPrice = _productService.GetById(item.Id).UnitPrice,
+                            TransactionId = transaction.Id
+                        });
 
-                    dictionary.Add(item.Id,item.Quantity);
-                }
+                        transaction.Total += (transactionItem.Quantity * transactionItem.UnitPrice);
+                    }
 
-                response = _transactionService.CheckStore(dictionary);
-
-                if (string.Equals(response, "Success"))
-                {
-                    _transactionService.UpdateStore(dictionary);
-                    response = "Success";
-                    transaction.Status = "Success";
-                    _transactionService.Update(transaction);
+                    if (string.Equals(response, "Success"))
+                    {
+                        _transactionService.UpdateStore(products);
+                        response = "Success";
+                        transaction.Status = "Success";
+                        _transactionService.Update(transaction);
+                    }
                 }
             }
             else

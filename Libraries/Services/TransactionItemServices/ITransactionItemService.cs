@@ -4,6 +4,6 @@ namespace Services.TransactionItemServices
 {
     public interface ITransactionItemService
     {
-        void Insert(TransactionItem item);
+        TransactionItem Insert(TransactionItem item);
     }
 }
