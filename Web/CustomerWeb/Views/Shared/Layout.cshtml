@@ -328,20 +328,20 @@
 
     <script type="text/javascript">
 
-        function additem(id, name, unitPrice) {//TODO - Güvenli mi? SQL Injection vs
+        function additem(Sku, name, unitPrice) {//TODO - Güvenli mi? SQL Injection vs
 
-            if (document.body.contains(document.getElementById("divProduct" + id))) {
+            if (document.body.contains(document.getElementById("divProduct" + Sku))) {
 
-                document.getElementById("divProduct" + id).getElementsByClassName('Quantity')[0].stepUp(1);
+                document.getElementById("divProduct" + Sku).getElementsByClassName('Quantity')[0].stepUp(1);
 
             } else {
 
-                $(cart).append('<tr id=divProduct' + id + ' > <input type="hidden" name="products.itemList.Index" value="' + id + '" /> ' + 
-                    '<input type="hidden" name = "products.itemList[' + id + '].Id" id = "products.itemList[' + id + '].Id" value = "' + id + '" />'+ 
+                $(cart).append('<tr id=divProduct' + Sku + ' > <input type="hidden" name="products.itemList.Index" value="' + Sku + '" /> ' + 
+                    '<input type="hidden" name = "products.itemList[' + Sku + '].Sku" id = "products.itemList[' + Sku + '].Sku" value = "' + Sku + '" />'+ 
                     '<th style = "width:50%" > '+name+'</th >' +
-                    '<td style="width:50%"><input type="number" class="Quantity" name="products.itemList[' + id + '].Quantity" value="1" onchange="calculateTotal()" onkeyup="calculateTotal()" min="1" /></td>' +
+                    '<td style="width:50%"><input type="number" class="Quantity" name="products.itemList[' + Sku + '].Quantity" value="1" onchange="calculateTotal()" onkeyup="calculateTotal()" min="1" /></td>' +
                     '<td style="width:50%"><span class="label gradient-1 btn-rounded" style="50%;">'+unitPrice+'₺</span></td>' +
-                    '<td style="width:50%"><span><a href=\"javascript: removeItem(' + id + ')\" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close color-danger"></i></a></span></td></tr > '
+                    '<td style="width:50%"><span><a href=\"javascript: removeItem(' + Sku + ')\" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close color-danger"></i></a></span></td></tr > '
                 );
 
             }
@@ -349,16 +349,16 @@
             calculateTotal();
         }
 
-        function removeItem(id) {
+        function removeItem(Sku) {
 
-            if (id == 0) {  // delete 'em all
+            if (Sku == 0) {  // delete 'em all
                 var divProduct = document.querySelectorAll('[id^="divProduct"]');
                 for (var i = 0; i < divProduct.length; i++) {
                     divProduct[i].innerHTML = "";
                     divProduct[i].parentNode.removeChild(divProduct[i]);
                 }
             } else {
-                var divProduct = document.getElementById("divProduct" + id);
+                var divProduct = document.getElementById("divProduct" + Sku);
                 divProduct.innerHTML = "";
                 divProduct.parentNode.removeChild(divProduct);
             }

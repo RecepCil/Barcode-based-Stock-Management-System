@@ -37,11 +37,16 @@ namespace CustomerWeb
             });
 
             // Database
-            services.AddEntityFrameworkNpgsql().AddDbContext<DataContext>(opt =>
-            opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
+            services.AddDbContext<DataContext>(opt =>
+            opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
              optionsBuilder =>
                 optionsBuilder.MigrationsAssembly("CustomerWeb")
             ));
+            // services.AddEntityFrameworkNpgsql().AddDbContext<DataContext>(opt =>
+            // opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"),
+            //  optionsBuilder =>
+            //     optionsBuilder.MigrationsAssembly("CustomerWeb")
+            // ));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

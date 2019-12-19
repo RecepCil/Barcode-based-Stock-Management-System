@@ -38,6 +38,11 @@ namespace Services.ProductServices
             return _productRepository.GetById(id);
         }
 
+        public Product GetBySku(String Sku)
+        {
+            return _productRepository.Table.Where(x => x.Sku == Sku).FirstOrDefault();
+        }
+
         public IEnumerable<Product> GetAll(bool OnlyOftUsed)
         {
             // Product Management

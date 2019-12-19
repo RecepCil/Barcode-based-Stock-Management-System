@@ -20,6 +20,40 @@ else if (ViewBag.Response != null)
     </script>
 }
 
+<script>
+
+		setInterval(FocusOnSKUReader, 100); 
+		
+		function FocusOnSKUReader( ){ 
+			document.getElementById("skuReader").focus(); 
+		} 
+		
+		function myFunction(event) {
+		
+		let skuReader = document.getElementById("skuReader");
+		
+			if(event.keyCode === 13)
+			{
+				if(skuReader.value.length>0)
+				{
+                    $.getJSON('/Transaction/GetProductBySku/',{Sku:skuReader.value}, function (data) {
+
+                        if(data.name!==null){
+                            additem(skuReader.value,data.name,data.unitPrice);
+                        }
+                        else{
+                            alert(skuReader.value+' is not found!');
+                        }
+                        skuReader.value = '';
+                    });
+				}
+                event.preventDefault();
+                return false;
+			}
+		}
+        
+</script>
+
 <form asp-controller="Transaction" asp-action="Complete" method="post">
 
     <div class="content-body row">
@@ -32,7 +66,7 @@ else if (ViewBag.Response != null)
                             <div class="card">
                                 <div class="card-body" style="padding: initial;">
                                     <div class="text-center">
-                                        <a id="product" href="#" onclick="additem('@item.Id','@item.Name','@item.UnitPrice')">
+                                            <a id="product" href="#" onclick="additem('@item.Sku','@item.Name','@item.UnitPrice')">
                                             <img src="~/Images/@item.ImageUrl" class="rounded-circle" alt="" style="max-height:100px;max-width:100px;">
                                             <h5 class="mt-0 mb-0">@item.Name</h5>
                                             <p class="m-0">@item.UnitPrice ₺</p>
@@ -76,6 +110,7 @@ else if (ViewBag.Response != null)
                     <div class="card" style="margin:auto; margin-top:10px;">
                         <div class="card-body">
                             <center>BARKOD</center>
+                            <input type="text" id="skuReader" onkeypress="myFunction(event)" />
                         </div>
                     </div>
                     <div class="card" style="margin:auto; margin-top:10px;">

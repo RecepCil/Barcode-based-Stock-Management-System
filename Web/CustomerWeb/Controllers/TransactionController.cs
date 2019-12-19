@@ -94,5 +94,14 @@ namespace CustomerWeb.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult GetProductBySku(string Sku)
+        {
+            var product = _productService.GetBySku(Sku);
+
+            var result = new { Name = product?.Name, UnitPrice = product?.UnitPrice };
+
+            return Json(result);
+        }
     }
 }

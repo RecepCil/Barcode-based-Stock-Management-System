@@ -7,6 +7,7 @@ namespace Services.ProductServices
     {
         void Insert(Product product);
         Product GetById(int Id);
+        Product GetBySku(string Sku);
         IEnumerable<Product> GetAll(bool OnlyOftUsed);
         void Update(Product product);
         void Delete(int Id);
