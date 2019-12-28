@@ -12,30 +12,13 @@
     </div>
     <div class="col-md-3">
 
-        @if (string.IsNullOrEmpty(Context.Request.Query["startDate"].ToString()))
-        {
-            <input id="startDate" name="startDate" type="date" class="form-control" value="@ViewBag.startDate" />
-        }
-        else
-        {
-            <input id="startDate" name="startDate" type="date" class="form-control" value='@Context.Request.Query["startDate"].ToString()' />
-        }
+    @* date    format   MM/DD/yyyy *@
+    @{
+        var startDate = @ViewBag.startDate;
+        var endDate = @ViewBag.endDate;
 
-    </div>
-    <div class="col-md-1"></div>
-    <div class="form-group col-md-2">
-        <label for="endDate" class="text-right control-label col-form-label">End Date</label>
-    </div>
-    <div class="col-md-3">
-
-        @if (string.IsNullOrEmpty(Context.Request.Query["endDate"].ToString()))
-        {
-            <input id="endDate" name="endDate" type="date" class="form-control" value="@ViewBag.endDate" />
-        }
-        else
-        {
-            <input id="endDate" name="endDate" type="date" class="form-control" value='@Context.Request.Query["endDate"]' />
-        }
+        <input class="form-control input-daterange-datepicker" type="text" id="daterange" name="daterange" value='@startDate - @endDate'>
+    }
 
     </div>
     <div class="col-md-1"></div>
@@ -52,7 +35,8 @@
                 listItems.Add(new SelectListItem
                 {
                     Text = item,
-                    Value = item
+                    Value = item,
+                    Selected = (string.Equals(@ViewBag.transactionType,item)) ? true : false
                 });
             }
         }
@@ -60,15 +44,13 @@
         @Html.DropDownList("selectedTransaction", listItems, "Select transaction type!", new { @class = "form-control", })
 
     </div>
-    <div class="col-md-7"></div>
-    <div class="col-md-6"></div>
-
-    <div class="form-group col-md-3">
+    <div class="col-md-8"></div>
+    <div class="form-group col-md-2">
         <button type="submit" class="btn btn-sm btn-info" style="float:right;">
             <i class="fa fa-search">   </i> Search
         </button>
     </div>
-    <div class="form-group col-md-3">
-        <a href="@Url.Action("List")" class="btn btn-sm btn-danger">Clear Filter</a>
+    <div class="form-group col-md-2">
+        <a href='@Url.Action("List")' class="btn btn-sm btn-danger">Clear Filter</a>
     </div>
 </div>

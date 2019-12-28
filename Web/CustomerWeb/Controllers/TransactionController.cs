@@ -32,12 +32,12 @@ namespace CustomerWeb.Controllers
 
         #endregion
 
-        public IActionResult Index()
+        public IActionResult Index(string response = "")
         {
-            if(TempData["response"]!=null)
-            { 
-                ViewBag.Response = TempData["response"].ToString();
-                TempData["response"] = null;
+            if(!string.IsNullOrWhiteSpace(response)){
+
+                TempData["Response"] = response;
+                response = null;
             }
 
             var model = _productService.GetAll(true);
@@ -51,7 +51,7 @@ namespace CustomerWeb.Controllers
 
             if (ModelState.IsValid && ModelState.Count > 0)
             {
-                Core.Domain.Transaction transaction = _transactionService.Insert(new Core.Domain.Transaction
+                var transaction = _transactionService.Insert(new Core.Domain.Transaction
                 {
                     ActionType = "Selling",
                     IsDeleted = false,
@@ -65,11 +65,12 @@ namespace CustomerWeb.Controllers
                 {
                     foreach (var item in products.itemList)
                     {
+                        var product = _productService.GetBySku(item.Sku);
                         Core.Domain.TransactionItem transactionItem = _transactionItemService.Insert(new Core.Domain.TransactionItem
                         {
-                            ProductId = item.Id,
-                            Quantity = item.Quantity,
-                            UnitPrice = _productService.GetById(item.Id).UnitPrice,
+                            ProductId = product.Id,
+                            Quantity = product.Quantity,
+                            UnitPrice = product.UnitPrice,
                             TransactionId = transaction.Id
                         });
 
@@ -79,7 +80,7 @@ namespace CustomerWeb.Controllers
                     if (string.Equals(response, "Success"))
                     {
                         _transactionService.UpdateStore(products);
-                        response = "Success";
+
                         transaction.Status = "Success";
                         _transactionService.Update(transaction);
                     }
@@ -90,9 +91,7 @@ namespace CustomerWeb.Controllers
                 response = "Failed";
             }
 
-            TempData["response"] = response;
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Transaction", new { response });
         }
 
         public ActionResult GetProductBySku(string Sku)

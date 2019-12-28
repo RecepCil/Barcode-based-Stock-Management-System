@@ -16,8 +16,7 @@ namespace CustomerWeb.Controllers
         #region Fields
 
         private ITransactionService _transactionService;
-        private string startDate => DataReader.GetDateTimeForFilter(Request.Query["startDate"]);
-        private string endDate => DataReader.GetDateTimeForFilter(Request.Query["endDate"]);
+        private string dateRange => DataReader.GetString(Request.Query["daterange"]);
         private string transactionType => DataReader.GetString(Request.Query["selectedTransaction"]);
         private int activePage => DataReader.GetInt32(Request.Query["p"]) > 0 ? DataReader.GetInt32(Request.Query["p"]) : 1;
         private int recordsPerPage = 50;
@@ -40,12 +39,11 @@ namespace CustomerWeb.Controllers
 
         public IActionResult List()
         {
-            if (string.IsNullOrEmpty(startDate))
-                ViewBag.startDate = DateTime.Today.ToString("yyyy-MM-dd");
-            if (string.IsNullOrEmpty(endDate))
-                ViewBag.endDate = DateTime.Today.ToString("yyyy-MM-dd");
-
-            var result = _transactionService.GetAll(startDate, endDate, transactionType, activePage, recordsPerPage);
+            ViewBag.startDate = (string.IsNullOrEmpty(dateRange)) ? DateTime.Today.ToString("MM/dd/yyyy") : dateRange.Substring(0,10);
+            ViewBag.endDate = (string.IsNullOrEmpty(dateRange)) ? DateTime.Today.AddDays(1).ToString("MM/dd/yyyy") : dateRange.Substring(13,10);
+            ViewBag.transactionType = transactionType;
+            
+            var result = _transactionService.GetAll(ViewBag.startDate, ViewBag.endDate, ViewBag.transactionType, activePage, recordsPerPage);
 
             return View(result);
         }

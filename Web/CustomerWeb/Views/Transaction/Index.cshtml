@@ -5,20 +5,17 @@
 
 @model IEnumerable<Core.Domain.Product>
 
-@if (ViewBag.Response == "Success")
-{
-    <script>
-        $(document).ready(function () {
-            alert('İşleminiz başarıyla gerçekleşti!');
-        });
-    </script>
-}
-else if (ViewBag.Response != null)
-{
-    <script type="text/javascript">
-          alert('@ViewBag.Response');
-    </script>
-}
+@{  
+    var response = "";  
+    if (TempData.ContainsKey("Response"))  
+    {  
+        response = TempData["Response"] as string;  
+
+        <script>
+            alert('@Html.Raw(response)');
+        </script>
+    }  
+}     
 
 <script>
 
@@ -110,7 +107,7 @@ else if (ViewBag.Response != null)
                     <div class="card" style="margin:auto; margin-top:10px;">
                         <div class="card-body">
                             <center>BARKOD</center>
-                            <input type="text" id="skuReader" onkeypress="myFunction(event)" />
+                            <center><input type="text" id="skuReader" onkeypress="myFunction(event)" /></center>
                         </div>
                     </div>
                     <div class="card" style="margin:auto; margin-top:10px;">

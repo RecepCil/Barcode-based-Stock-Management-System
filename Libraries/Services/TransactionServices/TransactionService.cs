@@ -5,6 +5,7 @@ using Core.Data;
 using Core.Domain;
 using Core.Enum;
 using Services.Models;
+using Services.ProductServices;
 using X.PagedList;
 
 namespace Services.TransactionServices
@@ -13,16 +14,16 @@ namespace Services.TransactionServices
     {
         #region Fields
 
-        private IRepository<Product> _productRepository;
+        private IProductService _productService;
         private IRepository<Transaction> _transactionRepository;
 
         #endregion
 
         #region Ctor
 
-        public TransactionService(IRepository<Product> _productRepository, IRepository<Transaction> _transactionRepository)
+        public TransactionService(IProductService _productService, IRepository<Transaction> _transactionRepository)
         {
-            this._productRepository = _productRepository;
+            this._productService = _productService;
             this._transactionRepository = _transactionRepository;
         }
 
@@ -32,13 +33,18 @@ namespace Services.TransactionServices
 
         public string CheckStore(ShoppingCart products)
         {
+            string response = string.Empty;
+
             foreach (var item in products.itemList)
             {
-                Product product = _productRepository.GetById(item.Id);
+                Product product = _productService.GetBySku(item.Sku);
                 if (product.Quantity < item.Quantity)
-                    return "Yeterli miktarda "+product.Name+" yok.";
+                    response += "Yeterli miktarda "+product.Name+" ürünü mevcut değil. \\n";
             }
-            return "Success";
+
+            if(string.IsNullOrEmpty(response))
+                return "Success";
+            return response;
         }
 
         public Transaction Insert(Transaction transaction)
@@ -60,7 +66,7 @@ namespace Services.TransactionServices
             if (!string.IsNullOrEmpty(startDate) && !string.IsNullOrEmpty(endDate))
                 result = result.Where(x => x.TransactionDate >= Convert.ToDateTime(startDate) && x.TransactionDate <= Convert.ToDateTime(endDate));
 
-            if (!string.IsNullOrEmpty(transactionType))   // CHECK
+            if (!string.IsNullOrEmpty(transactionType))   
                 result = result.Where(x => x.ActionType == transactionType);
 
             return result.OrderByDescending(x => x.TransactionDate).ToPagedList(activePage, recordsPerPage);
@@ -68,11 +74,11 @@ namespace Services.TransactionServices
 
         public void UpdateStore(ShoppingCart products)
         {
-            foreach (var item in products.itemList) {
-
-                Product product = _productRepository.GetById(item.Id);
+            foreach (var item in products.itemList) 
+            {
+                Product product = _productService.GetBySku(item.Sku);
                 product.Quantity -= item.Quantity;
-                _productRepository.Update(product);
+                _productService.Update(product);
             }
         }
 

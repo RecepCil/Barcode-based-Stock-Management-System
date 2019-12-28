@@ -4,7 +4,7 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Quixlab - Bootstrap Admin Dashboard Template by Themefisher.com</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/quixlab/themes/quixlab/images/favicon.png">
     <!-- Pignose Calender -->
     <link href="~/quixlab/themes/quixlab/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
@@ -20,6 +20,17 @@
     <link rel="stylesheet" href="~/quixlab/themes/quixlab/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
     <!-- Custom Stylesheet -->
     <link href="~/quixlab/themes/quixlab/css/style.css" rel="stylesheet" />
+    <!-- Custom Stylesheet -->
+    <link href="~/quixlab/themes/quixlab/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
+    <!-- Page plugins css -->
+    <link href="~/quixlab/themes/quixlab/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+    <!-- Color picker plugins css -->
+    <link href="~/quixlab/themes/quixlab/plugins/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="~/quixlab/themes/quixlab/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+    <!-- Daterange picker plugins css -->
+    <link href="~/quixlab/themes/quixlab/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="~/quixlab/themes/quixlab/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 </head>
 
 <body data-theme-version="light" data-layout="vertical" data-nav-headerbg="color_1" data-headerbg="color_1" data-sidebar-style="full" data-sibebarbg="color_1" data-sidebar-position="static" data-header-position="static" data-container="wide" direction="ltr">
@@ -101,7 +112,7 @@
                                     <ul>
                                         <li class="notification-unread">
                                             <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/1.jpg" alt="">
+                                                <img class="float-left mr-3 avatar-img" src="~/quixlab/themes/quixlab/images/avatar/1.jpg" alt="">
                                                 <div class="notification-content">
                                                     <div class="notification-heading">Saiful Islam</div>
                                                     <div class="notification-timestamp">08 Hours ago</div>
@@ -111,7 +122,7 @@
                                         </li>
                                         <li class="notification-unread">
                                             <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/2.jpg" alt="">
+                                                <img class="float-left mr-3 avatar-img" src="~/quixlab/themes/quixlab/images/avatar/2.jpg" alt="">
                                                 <div class="notification-content">
                                                     <div class="notification-heading">Adam Smith</div>
                                                     <div class="notification-timestamp">08 Hours ago</div>
@@ -121,7 +132,7 @@
                                         </li>
                                         <li>
                                             <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/3.jpg" alt="">
+                                                <img class="float-left mr-3 avatar-img" src="~/quixlab/themes/quixlab/images/avatar/3.jpg" alt="">
                                                 <div class="notification-content">
                                                     <div class="notification-heading">Barak Obama</div>
                                                     <div class="notification-timestamp">08 Hours ago</div>
@@ -131,7 +142,7 @@
                                         </li>
                                         <li>
                                             <a href="javascript:void()">
-                                                <img class="float-left mr-3 avatar-img" src="images/avatar/4.jpg" alt="">
+                                                <img class="float-left mr-3 avatar-img" src="~/quixlab/themes/quixlab/images/avatar/4.jpg" alt="">
                                                 <div class="notification-content">
                                                     <div class="notification-heading">Hilari Clinton</div>
                                                     <div class="notification-timestamp">08 Hours ago</div>
@@ -215,7 +226,7 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="images/user/1.png" alt="" width="40" height="40">
+                                <img src="~/quixlab/themes/quixlab/images/user/1.png" alt="" width="40" height="40">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
@@ -280,6 +291,43 @@
             Content body start
         ***********************************-->
         @RenderBody()
+
+        <div class="modal fade bootstrapmodal">
+            <div class="modal-dialog" >
+                <div class="modal-content" >
+                     <div class="modal-body">
+                        <div class="btn-group-vertical ml-4 mt-4" role="group" aria-label="Basic example">
+                            <div class="btn-group">
+                                <input class="text-center form-control-lg mb-2" id="modalQuantity">
+                                <input type="hidden" id="modalSku">
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value + '1';">1</button>
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value + '2';">2</button>
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value + '3';">3</button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value + '4';">4</button>
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value + '5';">5</button>
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value + '6';">6</button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value + '7';">7</button>
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value + '8';">8</button>
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value + '9';">9</button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value.slice(0, -1);">&lt;</button>
+                                <button type="button" class="btn btn-outline-secondary py-3" onclick="document.getElementById('modalQuantity').value=document.getElementById('modalQuantity').value + '0';">0</button>
+                                <button type="button" class="btn btn-primary py-3" onclick="setQuantity(modalSku.value,modalQuantity.value)" data-dismiss="modal">Go</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+
         <!--**********************************
             Content body end
         ***********************************-->
@@ -326,6 +374,23 @@
     <script src="~/quixlab/themes/quixlab/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
     <script src="~/quixlab/themes/quixlab/js/dashboard/dashboard-1.js"></script><i title="Raphaël Colour Picker" style="display: none; color: transparent;"></i>
 
+
+    <script src="~/quixlab/themes/quixlab/plugins/moment/moment.js"></script>
+    <script src="~/quixlab/themes/quixlab/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <!-- Clock Plugin JavaScript -->
+    <script src="~/quixlab/themes/quixlab/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <!-- Color Picker Plugin JavaScript -->
+    <script src="~/quixlab/themes/quixlab/plugins/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
+    <script src="~/quixlab/themes/quixlab/plugins/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
+    <script src="~/quixlab/themes/quixlab/plugins/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="~/quixlab/themes/quixlab/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="~/quixlab/themes/quixlab/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="~/quixlab/themes/quixlab/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+    <script src="~/quixlab/themes/quixlab/js/plugins-init/form-pickers-init.js"></script>
+
     <script type="text/javascript">
 
         function additem(Sku, name, unitPrice) {//TODO - Güvenli mi? SQL Injection vs
@@ -339,7 +404,7 @@
                 $(cart).append('<tr id=divProduct' + Sku + ' > <input type="hidden" name="products.itemList.Index" value="' + Sku + '" /> ' + 
                     '<input type="hidden" name = "products.itemList[' + Sku + '].Sku" id = "products.itemList[' + Sku + '].Sku" value = "' + Sku + '" />'+ 
                     '<th style = "width:50%" > '+name+'</th >' +
-                    '<td style="width:50%"><input type="number" class="Quantity" name="products.itemList[' + Sku + '].Quantity" value="1" onchange="calculateTotal()" onkeyup="calculateTotal()" min="1" /></td>' +
+                    '<td style="width:50%"><a class="btn btn-success" onclick="sendSkuToModal(' + Sku + ')" data-toggle="modal" data-target=".bootstrapmodal"><span class="glyphicon glyphicon-eye-open"><input type="number" class="Quantity" id="products.itemList[' + Sku + '].Quantity" name="products.itemList[' + Sku + '].Quantity" value="1" onchange="calculateTotal()" onkeyup="calculateTotal()" min="1" /></span></a></td>' +
                     '<td style="width:50%"><span class="label gradient-1 btn-rounded" style="50%;">'+unitPrice+'₺</span></td>' +
                     '<td style="width:50%"><span><a href=\"javascript: removeItem(' + Sku + ')\" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close"><i class="fa fa-close color-danger"></i></a></span></td></tr > '
                 );
@@ -349,7 +414,7 @@
             calculateTotal();
         }
 
-        function removeItem(Sku) {
+        removeItem = function(Sku) {
 
             if (Sku == 0) {  // delete 'em all
                 var divProduct = document.querySelectorAll('[id^="divProduct"]');
@@ -365,10 +430,6 @@
             calculateTotal();
         }
 
-    </script>
-
-    <script>
-
         calculateTotal = function () {
 
             var divProduct = document.querySelectorAll('[id^="divProduct"]');
@@ -379,6 +440,15 @@
                 totalAmount += (count*price);
             }
             document.getElementById("totalAmount").innerHTML = '<h4>' + totalAmount + ' ₺</h4>';
+        }
+
+        sendSkuToModal = function(Sku) {
+            document.getElementById('modalSku').value = Sku;
+            document.getElementById('modalQuantity').value = '';            
+        }
+
+        setQuantity = function(modalSku,modalQuantity){
+            document.getElementById('products.itemList[' + modalSku + '].Quantity').value = modalQuantity;
         }
 
     </script>

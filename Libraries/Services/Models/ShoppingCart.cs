@@ -10,7 +10,7 @@ namespace Services.Models
 
     public class ShoppingCartItem
     {
-        public int Id { get; set; }
+        public string Sku { get; set; }
 
         [Required]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Quantity must be numeric")]
