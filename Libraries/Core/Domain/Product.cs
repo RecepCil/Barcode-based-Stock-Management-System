@@ -14,13 +14,14 @@ namespace Core.Domain
         public int? MerchantId { get; set; }
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
-        public bool IsActive { get; set; }
         public bool ShowOnHomePage { get; set; }
         //public int ShowingPriority { get; set; }
-        public DateTime? CreatedOnUtc { get; set; }
-        public DateTime? UpdatedOnUtc { get; set; }
+        public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-        public DateTime? DeletedOnUtc { get; set; }
+        public DateTime? CreatedOnUtc { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? UpdatedOnUtc { get; set; }
+        public string UpdatedBy { get; set; }
 
         public virtual Merchant Merchant { get; set; }
     }

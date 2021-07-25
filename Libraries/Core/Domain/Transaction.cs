@@ -8,7 +8,6 @@ namespace Core.Domain
         public string ActionType { get; set; }  // satış - alış - iade
         public DateTime TransactionDate { get; set; }
         public decimal Total { get; set; }
-        public int? TransactionIdforIade { get; set; }
         public string Status { get; set; }
         public bool IsDeleted { get; set; }
 

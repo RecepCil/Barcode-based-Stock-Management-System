@@ -3,28 +3,29 @@ using System;
 using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CustomerWeb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190616145620__190616_Identity_Vol1.1")]
-    partial class _190616_Identity_Vol11
+    [Migration("20210725184651_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Core.Domain.Log", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedOnUtc");
 
@@ -54,17 +55,22 @@ namespace CustomerWeb.Migrations
             modelBuilder.Entity("Core.Domain.Merchant", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedOnUtc");
+                    b.Property<string>("CreatedBy");
 
-                    b.Property<DateTime?>("DeletedOnUtc");
+                    b.Property<DateTime?>("CreatedOnUtc");
 
                     b.Property<bool>("IsActive");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name");
+
+                    b.Property<string>("UpdatedBy");
+
+                    b.Property<DateTime?>("UpdatedOnUtc");
 
                     b.Property<string>("WebSite");
 
@@ -76,13 +82,12 @@ namespace CustomerWeb.Migrations
             modelBuilder.Entity("Core.Domain.Product", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy");
 
                     b.Property<DateTime?>("CreatedOnUtc");
-
-                    b.Property<decimal>("DefaultAmount");
-
-                    b.Property<DateTime?>("DeletedOnUtc");
 
                     b.Property<string>("FullDescription");
 
@@ -104,6 +109,10 @@ namespace CustomerWeb.Migrations
 
                     b.Property<string>("Sku");
 
+                    b.Property<decimal>("UnitPrice");
+
+                    b.Property<string>("UpdatedBy");
+
                     b.Property<DateTime?>("UpdatedOnUtc");
 
                     b.HasKey("Id");
@@ -116,17 +125,18 @@ namespace CustomerWeb.Migrations
             modelBuilder.Entity("Core.Domain.Transaction", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ActionType");
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<string>("Status");
+
                     b.Property<decimal>("Total");
 
                     b.Property<DateTime>("TransactionDate");
-
-                    b.Property<int?>("TransactionIdforIade");
 
                     b.HasKey("Id");
 
@@ -136,15 +146,16 @@ namespace CustomerWeb.Migrations
             modelBuilder.Entity("Core.Domain.TransactionItem", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<decimal>("Amount");
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ProductId");
 
                     b.Property<int>("Quantity");
 
                     b.Property<int>("TransactionId");
+
+                    b.Property<decimal>("UnitPrice");
 
                     b.HasKey("Id");
 
@@ -172,7 +183,8 @@ namespace CustomerWeb.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -225,7 +237,8 @@ namespace CustomerWeb.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -233,7 +246,8 @@ namespace CustomerWeb.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType");
 
@@ -252,7 +266,8 @@ namespace CustomerWeb.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType");
 
